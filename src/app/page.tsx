@@ -3,7 +3,6 @@ import Image from "next/image";
 import MaxWidthWrapper from "../components/MaxWidthWrapper";
 import { ArrowRight } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
-import { absoluteUrl } from "@/lib/utils";
 
 export default function Home() {
   return (
@@ -22,7 +21,7 @@ export default function Home() {
             size: "lg",
             className: "mt-5",
           })}
-          href={absoluteUrl("/sign-up")}
+          href="/sign-up"
           target="_blank"
         >
           Get started <ArrowRight className="ml-2 h-5 w-5" />

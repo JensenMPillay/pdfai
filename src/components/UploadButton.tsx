@@ -115,11 +115,11 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
                   and drop
                 </p>
                 <p className="text-xs text-zinc-500">
-                  PDF (up to
+                  PDF (
                   {isSubscribed
                     ? PLANS.find((plan) => plan.name === "Pro")!.sizeLimit
                     : PLANS.find((plan) => plan.name === "Free")!.sizeLimit}
-                  MB)
+                  MB max)
                 </p>
               </div>
 
