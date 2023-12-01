@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { trpc } from "@/app/_trpc/client";
 import { getUserSubscriptionPlan } from "@/lib/stripe";
