@@ -7,8 +7,13 @@ import UploadButton from "./UploadButton";
 import { format } from "date-fns";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { getUserSubscriptionPlan } from "@/lib/stripe";
 
-function Dashboard() {
+type DashboardProps = {
+  subscriptionPlan: Awaited<ReturnType<typeof getUserSubscriptionPlan>>;
+};
+
+function Dashboard({ subscriptionPlan }: DashboardProps) {
   const [currentlyDeletingFile, setCurrentlyDeletingFile] = useState<
     string | null
   >(null);
@@ -38,7 +43,7 @@ function Dashboard() {
       <div className="mt-8 flex flex-col items-start justify-between gap-4 border-b border-gray-200 pb-5 sm:flex-row sm:items-center sm:gap-0">
         <h1 className="mb-3 text-5xl font-bold text-gray-900">My Files</h1>
 
-        <UploadButton isSubscribed={true} />
+        <UploadButton isSubscribed={subscriptionPlan.isSubscribed} />
       </div>
 
       {/* display all user files */}

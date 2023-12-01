@@ -4,6 +4,7 @@ import { options } from "../api/auth/[...nextauth]/options";
 import { redirect } from "next/navigation";
 import { db } from "@/db";
 import Dashboard from "@/components/Dashboard";
+import { getUserSubscriptionPlan } from "@/lib/stripe";
 
 export default async function Page() {
   const session = await getServerSession(options);
@@ -17,5 +18,7 @@ export default async function Page() {
 
   if (!dbUser) redirect("/auth-callback?origin=dashboard");
 
-  return <Dashboard />;
+  const subscriptionPlan = await getUserSubscriptionPlan();
+
+  return <Dashboard subscriptionPlan={subscriptionPlan} />;
 }

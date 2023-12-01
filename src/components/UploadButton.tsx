@@ -11,6 +11,7 @@ import { useUploadThing } from "@/lib/uploadthing";
 import { useToast } from "./ui/use-toast";
 import { trpc } from "@/app/_trpc/client";
 import { useRouter } from "next/navigation";
+import { PLANS } from "@/config/stripe";
 
 // DropZone
 const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
@@ -24,11 +25,9 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
 
   const { toast } = useToast();
 
-  // const { startUpload } = useUploadThing(
-  //   isSubscribed ? "proPlanUploader" : "freePlanUploader",
-  // );
-
-  const { startUpload } = useUploadThing("pdfUploader");
+  const { startUpload } = useUploadThing(
+    isSubscribed ? "proPlanUploader" : "freePlanUploader",
+  );
 
   // Sync Back -> Front
   const { mutate: startPolling } = trpc.getFile.useMutation({
@@ -116,7 +115,11 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
                   and drop
                 </p>
                 <p className="text-xs text-zinc-500">
-                  PDF (up to {isSubscribed ? "16" : "4"}MB)
+                  PDF (up to
+                  {isSubscribed
+                    ? PLANS.find((plan) => plan.name === "Pro")!.sizeLimit
+                    : PLANS.find((plan) => plan.name === "Free")!.sizeLimit}
+                  MB)
                 </p>
               </div>
 
