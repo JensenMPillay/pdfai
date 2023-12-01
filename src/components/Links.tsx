@@ -18,6 +18,19 @@ export function LoginLink() {
   );
 }
 
+export function LogoutLink() {
+  return (
+    <Link
+      className={buttonVariants({
+        size: "sm",
+      })}
+      href={absoluteUrl("/api/auth/signout")}
+    >
+      Sign out
+    </Link>
+  );
+}
+
 export function RegisterLink() {
   return (
     <Link

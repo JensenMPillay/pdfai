@@ -1,10 +1,11 @@
 import React from "react";
-import MaxWidthWrapper from "./MaxWidthWrapper";
-import { LoginLink, RegisterLink } from "./Links";
 import Link from "next/link";
-import { buttonVariants } from "./ui/button";
 import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
+import UserAccountNav from "./UserAccountNav";
+import MaxWidthWrapper from "./MaxWidthWrapper";
+import { LoginLink, RegisterLink } from "./Links";
+import { buttonVariants } from "./ui/button";
 
 export default async function Navbar() {
   const session = await getServerSession(options);
@@ -44,15 +45,11 @@ export default async function Navbar() {
                 >
                   Dashboard
                 </Link>
-                {/* <UserAccountNav
-                  name={
-                    !user.name
-                      ? 'Your Account'
-                      : `${user.name}`
-                  }
-                  email={user.email ?? ''}
-                  imageUrl={user.image ?? ''}
-                /> */}
+                <UserAccountNav
+                  name={!user.name ? "Your Account" : `${user.name}`}
+                  email={user.email ?? ""}
+                  imageUrl={user.image ?? ""}
+                />
               </>
             )}
           </div>
