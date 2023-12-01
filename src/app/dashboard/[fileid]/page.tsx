@@ -1,10 +1,11 @@
-import { options } from "@/app/api/auth/[...nextauth]/options";
-import ChatWrapper from "@/components/chat/ChatWrapper";
-import PdfRenderer from "@/components/PdfRenderer";
+import React from "react";
+import { notFound, redirect } from "next/navigation";
 import { db } from "@/db";
 import { getServerSession } from "next-auth";
-import { notFound, redirect } from "next/navigation";
-import React from "react";
+import { options } from "@/app/api/auth/[...nextauth]/options";
+import { getUserSubscriptionPlan } from "@/lib/stripe";
+import ChatWrapper from "@/components/chat/ChatWrapper";
+import PdfRenderer from "@/components/PdfRenderer";
 
 interface PageProps {
   params: {
@@ -32,7 +33,7 @@ export default async function Page({ params }: PageProps) {
 
   if (!file) notFound();
 
-  // const plan = await getUserSubscriptionPlan();
+  const subscriptionPlan = await getUserSubscriptionPlan();
 
   return (
     <div className="flex h-[calc(100vh-3.5rem)] flex-1 flex-col justify-between">
@@ -46,8 +47,10 @@ export default async function Page({ params }: PageProps) {
         </div>
 
         <div className="flex-[0.75] shrink-0 border-t border-gray-200 lg:w-96 lg:border-l lg:border-t-0">
-          {/* <ChatWrapper isSubscribed={plan.isSubscribed} fileId={file.id} /> */}
-          <ChatWrapper fileId={file.id} />
+          <ChatWrapper
+            isSubscribed={subscriptionPlan.isSubscribed}
+            fileId={file.id}
+          />
         </div>
       </div>
     </div>
