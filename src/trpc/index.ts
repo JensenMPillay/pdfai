@@ -8,6 +8,7 @@ import { INFINITE_QUERY_LIMIT } from "@/config/infinite-query";
 import { absoluteUrl } from "@/lib/utils";
 import { getUserSubscriptionPlan, stripe } from "@/lib/stripe";
 import { PLANS } from "@/config/stripe";
+import { PDFLoader } from "langchain/document_loaders/fs/pdf";
 
 export const appRouter = router({
   // GET
@@ -159,6 +160,54 @@ export const appRouter = router({
 
       // Error
       if (!file) return { status: "PENDING" as const };
+
+      // Get Real File
+      const response = await fetch(file.url);
+
+      // Get File Content
+      const blob = await response.blob();
+
+      // Load File
+      const loader = new PDFLoader(blob);
+
+      // Get File Docs
+      const pageLevelDocs = await loader.load();
+
+      // Get File Length
+      const pagesAmt = pageLevelDocs.length;
+
+      // Verify Plan Exceeded
+      const subscriptionPlan = await getUserSubscriptionPlan();
+      const { isSubscribed } = subscriptionPlan;
+
+      const isFreeExceeded =
+        pagesAmt > PLANS.find((plan) => plan.name === "Free")!.pagesPerPdf;
+
+      const isProExceeded =
+        pagesAmt > PLANS.find((plan) => plan.name === "Pro")!.pagesPerPdf;
+
+      if (
+        (isSubscribed && isProExceeded) ||
+        (!isSubscribed && isFreeExceeded)
+      ) {
+        await db.file.update({
+          data: {
+            uploadStatus: "FAILED",
+          },
+          where: {
+            id: file.id,
+          },
+        });
+      } else {
+        await db.file.update({
+          data: {
+            uploadStatus: "SUCCESS",
+          },
+          where: {
+            id: file.id,
+          },
+        });
+      }
 
       return { status: file.uploadStatus };
     }),

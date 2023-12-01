@@ -58,10 +58,10 @@ const onUploadComplete = async ({
   });
 
   try {
-    // Get File
-    const response = await fetch(
-      `https://uploadthing-prod.s3.us-west-2.amazonaws.com/${file.key}`,
-    );
+    // Get Real File
+    const response = await fetch(createdFile.url);
+    //   `https://uploadthing-prod.s3.us-west-2.amazonaws.com/${file.key}`,
+    // );
 
     // Get File Content
     const blob = await response.blob();
@@ -94,32 +94,32 @@ const onUploadComplete = async ({
           id: createdFile.id,
         },
       });
+    } else {
+      // Vectorization && Indexation of Document
+      const pineconeIndex = pinecone.Index("pdfai");
+
+      const embeddings = new OpenAIEmbeddings({
+        openAIApiKey: process.env.OPENAI_API_KEY,
+      });
+
+      await PineconeStore.fromDocuments(pageLevelDocs, embeddings, {
+        pineconeIndex,
+        // namespace: createdFile.id,
+      });
+
+      await db.file.update({
+        data: {
+          uploadStatus: "SUCCESS",
+        },
+        where: {
+          id: createdFile.id,
+        },
+      });
     }
-
-    // Vectorization && Indexation of Document
-    const pineconeIndex = pinecone.Index("pdfai");
-
-    const embeddings = new OpenAIEmbeddings({
-      openAIApiKey: process.env.OPENAI_API_KEY,
-    });
-
-    await PineconeStore.fromDocuments(pageLevelDocs, embeddings, {
-      pineconeIndex,
-      // namespace: createdFile.id,
-    });
-
-    await db.file.update({
-      data: {
-        uploadStatus: "SUCCESS",
-      },
-      where: {
-        id: createdFile.id,
-      },
-    });
   } catch (error) {
     await db.file.update({
       data: {
-        uploadStatus: "SUCCESS",
+        uploadStatus: "FAILED",
       },
       where: {
         id: createdFile.id,
