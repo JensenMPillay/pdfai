@@ -10,7 +10,7 @@ export function LoginLink() {
         variant: "ghost",
         size: "sm",
       })}
-      href="/signin"
+      href="/sign-in"
     >
       Sign in
     </Link>
