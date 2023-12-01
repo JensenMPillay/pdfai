@@ -1,6 +1,5 @@
-import { cn } from "@/lib/utils";
 import "./globals.css";
-import type { Metadata } from "next";
+import { cn, constructMetadata } from "@/lib/utils";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import { PropsWithChildren } from "react";
@@ -12,10 +11,7 @@ import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "PDF OpenAI",
-  description: "PDF OpenAI",
-};
+export const metadata = constructMetadata();
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
