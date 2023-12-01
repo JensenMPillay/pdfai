@@ -1,8 +1,8 @@
-lockfileVersion: '7.0'
+lockfileVersion: '6.0'
 
 settings:
-  autoInstallPeers: false
-  excludeLinksFromLockfile: false
+  autoInstallPeers: true
+  excludeLinksFromLockfile: true
 
 dependencies:
   '@hookform/resolvers':
