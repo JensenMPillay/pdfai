@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
+import MobileNav from "./MobileNav";
 import UserAccountNav from "./UserAccountNav";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import { LoginLink, RegisterLink } from "./Links";
@@ -18,7 +19,7 @@ export default async function Navbar() {
           <Link href="/" className="z-40 flex font-semibold">
             <span>PDFAI</span>
           </Link>
-          {/* <MobileNav isAuth={!!user} /> */}
+          <MobileNav isAuth={!!user} />
           <div className="hidden items-center space-x-4 sm:flex">
             {!user ? (
               <>
