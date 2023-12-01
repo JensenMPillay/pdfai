@@ -24,7 +24,7 @@ export function LogoutLink() {
       className={buttonVariants({
         size: "sm",
       })}
-      href={absoluteUrl("/api/auth/signout")}
+      href={absoluteUrl("/sign-out")}
     >
       Sign out
     </Link>
@@ -37,7 +37,7 @@ export function RegisterLink() {
       className={buttonVariants({
         size: "sm",
       })}
-      href={absoluteUrl("/api/auth/new-user")}
+      href={absoluteUrl("/sign-up")}
     >
       Get started <ArrowRight className="ml-1.5 h-5 w-5" />
     </Link>
