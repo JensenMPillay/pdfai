@@ -107,6 +107,9 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
             <label
               htmlFor="dropzone-file"
               className="flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-lg bg-gray-50 hover:bg-gray-100"
+              onClick={(e) => {
+                e.preventDefault();
+              }}
             >
               <div className="flex flex-col items-center justify-center pb-6 pt-5">
                 <Cloud className="mb-2 h-6 w-6 text-zinc-500" />
