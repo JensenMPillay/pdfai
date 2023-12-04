@@ -1,6 +1,7 @@
 import { db } from "@/db";
 import { getServerSession } from "next-auth";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
+import { UTApi } from "uploadthing/server";
 import { PDFLoader } from "langchain/document_loaders/fs/pdf";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { PineconeStore } from "langchain/vectorstores/pinecone";
@@ -8,6 +9,8 @@ import { options } from "../auth/[...nextauth]/options";
 import { pinecone } from "@/lib/pinecone";
 import { getUserSubscriptionPlan } from "@/lib/stripe";
 import { PLANS } from "@/config/stripe";
+
+export const utapi = new UTApi();
 
 const f = createUploadthing();
 

@@ -4,11 +4,12 @@ import { options } from "@/app/api/auth/[...nextauth]/options";
 import { TRPCError } from "@trpc/server";
 import { db } from "@/db";
 import { z } from "zod";
-import { INFINITE_QUERY_LIMIT } from "@/config/infinite-query";
+import { utapi } from "@/app/api/uploadthing/core";
+import { PDFLoader } from "langchain/document_loaders/fs/pdf";
 import { absoluteUrl } from "@/lib/utils";
 import { getUserSubscriptionPlan, stripe } from "@/lib/stripe";
 import { PLANS } from "@/config/stripe";
-import { PDFLoader } from "langchain/document_loaders/fs/pdf";
+import { INFINITE_QUERY_LIMIT } from "@/config/infinite-query";
 
 export const appRouter = router({
   // GET
@@ -134,13 +135,16 @@ export const appRouter = router({
       // Error
       if (!file) throw new TRPCError({ code: "NOT_FOUND" });
 
-      // Delete
+      // Delete DB File
       await db.file.delete({
         where: {
           id: input.id,
           userId,
         },
       });
+
+      // Delete UploadThing File
+      await utapi.deleteFiles(file.key);
 
       // OPTIONAL
       return file;
