@@ -72,8 +72,9 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
 
         if (!res) {
           return toast({
-            title: "Something went wrong",
-            description: "Please try again later",
+            title: "Something went wrong...",
+            description:
+              "Your file may be too large. Please reload the page and try again.",
             variant: "destructive",
           });
         }
