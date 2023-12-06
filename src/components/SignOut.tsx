@@ -1,12 +1,15 @@
 "use client";
+import { router } from "@/trpc/trpc";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const SignOut = ({ session }: { session: Session | null }) => {
+  const router = useRouter();
   const user = session?.user;
   if (user) signOut({ redirect: false });
-  return redirect("/");
+  router.refresh();
+  return router.push("/");
 };
 
 export default SignOut;
