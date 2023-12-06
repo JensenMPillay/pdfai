@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 
 const SignOut = ({ session }: { session: Session | null }) => {
   const user = session?.user;
-  if (user) signOut();
+  if (user) signOut({ redirect: false });
   return redirect("/");
 };
 
