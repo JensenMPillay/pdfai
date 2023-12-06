@@ -1,5 +1,4 @@
 "use client";
-import { router } from "@/trpc/trpc";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
