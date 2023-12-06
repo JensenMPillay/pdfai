@@ -57,7 +57,7 @@ const PdfRenderer = ({ url }: { url: string }) => {
   });
 
   // Type from Zod Object
-  type TypeCustomPageValidator = z.infer<typeof CustomPageValidator>;
+  type CustomPageValidatorType = z.infer<typeof CustomPageValidator>;
 
   // React Hook Form
   const {
@@ -65,7 +65,7 @@ const PdfRenderer = ({ url }: { url: string }) => {
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm<TypeCustomPageValidator>({
+  } = useForm<CustomPageValidatorType>({
     defaultValues: {
       page: "1",
     },
@@ -75,7 +75,7 @@ const PdfRenderer = ({ url }: { url: string }) => {
   // Resize PDF
   const { width, ref } = useResizeDetector();
 
-  const handlePageSubmit = ({ page }: TypeCustomPageValidator) => {
+  const handlePageSubmit = ({ page }: CustomPageValidatorType) => {
     setCurrPage(Number(page));
     setValue("page", String(page));
   };

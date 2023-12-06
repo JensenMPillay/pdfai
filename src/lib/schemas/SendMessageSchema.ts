@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const SendMessageValidator = z.object({
+export const sendMessageSchema = z.object({
   fileId: z.string(),
   message: z.string(),
 });

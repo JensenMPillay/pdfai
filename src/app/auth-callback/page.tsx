@@ -20,7 +20,7 @@ export default function Page({}) {
       switch (error.data?.code) {
         case "UNAUTHORIZED": {
           // Redirection
-          router.push("/sign-in");
+          router.push("/auth/sign-in");
           break;
         }
         default: {

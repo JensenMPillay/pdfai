@@ -49,7 +49,7 @@ export const options: NextAuthOptions = {
         email: {
           label: "Email",
           type: "email",
-          placeholder: "example@example.com",
+          placeholder: "Email@example.com",
         },
         password: { label: "Password", type: "password" },
       },
@@ -81,10 +81,20 @@ export const options: NextAuthOptions = {
           },
         });
 
-        return dbUser &&
-          (await bcrypt.compare(credentials?.password, dbUser?.password))
-          ? dbUser
-          : null;
+        if (!dbUser) {
+          throw new Error("Email not found.");
+        }
+
+        const isPasswordValid = await bcrypt.compare(
+          credentials?.password,
+          dbUser?.password,
+        );
+
+        if (!isPasswordValid) {
+          throw new Error("Invalid password.");
+        }
+
+        return dbUser;
       },
     }),
   ],
@@ -102,13 +112,14 @@ export const options: NextAuthOptions = {
     },
   },
   theme: {
-    colorScheme: "dark", // "auto" | "dark" | "light"
+    colorScheme: "auto", // "auto" | "dark" | "light"
     brandColor: "", // Hex color code
     logo: "", // Absolute URL to image
     buttonText: "", // Hex color code
   },
-  // pages: {
-  //     signIn: "/signIn"
-  // }
+  pages: {
+    signIn: "/auth/sign-in",
+    signOut: "/auth/sign-out",
+  },
   // session: {    }
 };

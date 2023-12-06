@@ -10,6 +10,8 @@ import { absoluteUrl } from "@/lib/utils";
 import { getUserSubscriptionPlan, stripe } from "@/lib/stripe";
 import { PLANS } from "@/config/stripe";
 import { INFINITE_QUERY_LIMIT } from "@/config/infinite-query";
+import { signUpSchema } from "@/lib/schemas/CredentialsSchema";
+const bcrypt = require("bcrypt");
 
 export const appRouter = router({
   // GET
@@ -38,6 +40,34 @@ export const appRouter = router({
     }
     return { success: true };
   }),
+  registerUser: publicProcedure
+    // POST
+    .input(signUpSchema)
+    // Business Logic
+    .mutation(async ({ input }) => {
+      const dbUser = await db.user.findFirst({
+        where: {
+          email: input.email,
+        },
+      });
+
+      // Error
+      if (dbUser) throw new TRPCError({ code: "CONFLICT" });
+
+      const user = await db.user.create({
+        data: {
+          name: input.name,
+          email: input.email,
+          password: await bcrypt.hash(input.password, 10),
+        },
+      });
+
+      // Error
+      if (dbUser) throw new TRPCError({ code: "PARSE_ERROR" });
+
+      // OPTIONAL
+      return { success: true };
+    }),
   createStripeSession: privateProcedure.mutation(async ({ ctx }) => {
     const { userId } = ctx;
 

@@ -10,7 +10,7 @@ export function LoginLink() {
         variant: "ghost",
         size: "sm",
       })}
-      href="/sign-in"
+      href="/auth/sign-in"
     >
       Sign in
     </Link>
@@ -23,7 +23,7 @@ export function LogoutLink() {
       className={buttonVariants({
         size: "sm",
       })}
-      href="/sign-out"
+      href="/auth/sign-out"
     >
       Sign out
     </Link>
@@ -36,7 +36,7 @@ export function RegisterLink() {
       className={buttonVariants({
         size: "sm",
       })}
-      href="/sign-up"
+      href="/auth/sign-up"
     >
       Get started <ArrowRight className="ml-1.5 h-5 w-5" />
     </Link>

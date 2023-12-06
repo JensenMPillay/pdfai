@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { NextRequest } from "next/server";
 import { options } from "../auth/[...nextauth]/options";
-import { SendMessageValidator } from "@/lib/validators/SendMessageValidator";
+import { sendMessageSchema } from "@/lib/schemas/SendMessageSchema";
 import { db } from "@/db";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { pinecone } from "@/lib/pinecone";
@@ -25,7 +25,7 @@ export const POST = async (req: NextRequest) => {
   if (!userId) return new Response("Unauthorized.", { status: 401 });
 
   //   Validator by Zod Schema
-  const { fileId, message } = SendMessageValidator.parse(body);
+  const { fileId, message } = sendMessageSchema.parse(body);
 
   //   Get File
   const file = await db.file.findFirst({
