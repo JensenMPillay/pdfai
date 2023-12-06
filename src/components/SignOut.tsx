@@ -7,9 +7,12 @@ import { useRouter } from "next/navigation";
 const SignOut = ({ session }: { session: Session | null }) => {
   const router = useRouter();
   const user = session?.user;
-  if (user) signOut({ redirect: false });
-  router.refresh();
-  return router.push("/");
+  if (user) {
+    signOut({ redirect: false });
+    router.refresh();
+    router.push("/");
+  }
+  return null;
 };
 
 export default SignOut;
