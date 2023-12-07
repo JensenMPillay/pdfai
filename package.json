@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
-    "@mantine/hooks": "^7.3.0",
+    "@mantine/hooks": "^7.3.1",
     "@next-auth/prisma-adapter": "^1.0.7",
     "@pinecone-database/pinecone": "^1.1.2",
     "@prisma/client": "^5.7.0",
@@ -29,11 +29,11 @@
     "@trpc/react-query": "^10.44.1",
     "@trpc/server": "^10.44.1",
     "@uploadthing/react": "latest",
-    "ai": "^2.2.27",
+    "ai": "^2.2.28",
     "bcrypt": "latest",
     "class-variance-authority": "^0.7.0",
     "date-fns": "^2.30.0",
-    "langchain": "^0.0.202",
+    "langchain": "^0.0.203",
     "lucide-react": "latest",
     "next": "^13.5.6",
     "next-auth": "^4.24.5",
@@ -52,7 +52,7 @@
     "simplebar-react": "^3.2.4",
     "stripe": "^14.7.0",
     "uploadthing": "latest",
-    "zod": "^3.22.4"
+    "zod": "latest"
   },
   "devDependencies": {
     "@tailwindcss/typography": "latest",

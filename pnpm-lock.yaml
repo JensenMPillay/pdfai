@@ -9,7 +9,7 @@ dependencies:
     specifier: ^3.3.2
     version: 3.3.2(react-hook-form@7.48.2)
   '@mantine/hooks':
-    specifier: ^7.3.0
+    specifier: ^7.3.1
     version: 7.3.1(react@18.2.0)
   '@next-auth/prisma-adapter':
     specifier: ^1.0.7
@@ -63,7 +63,7 @@ dependencies:
     specifier: latest
     version: 6.0.2(next@13.5.6)(react@18.2.0)(uploadthing@6.0.4)
   ai:
-    specifier: ^2.2.27
+    specifier: ^2.2.28
     version: 2.2.28(react@18.2.0)(solid-js@1.8.7)(svelte@4.2.8)(vue@3.3.10)
   bcrypt:
     specifier: latest
@@ -75,8 +75,8 @@ dependencies:
     specifier: ^2.30.0
     version: 2.30.0
   langchain:
-    specifier: ^0.0.202
-    version: 0.0.202(@pinecone-database/pinecone@1.1.2)(pdf-parse@1.1.1)
+    specifier: ^0.0.203
+    version: 0.0.203(@pinecone-database/pinecone@1.1.2)(pdf-parse@1.1.1)
   lucide-react:
     specifier: latest
     version: 0.294.0(react@18.2.0)
@@ -132,7 +132,7 @@ dependencies:
     specifier: latest
     version: 6.0.4
   zod:
-    specifier: ^3.22.4
+    specifier: latest
     version: 3.22.4
 
 devDependencies:
@@ -3502,8 +3502,8 @@ packages:
       json-buffer: 3.0.1
     dev: true
 
-  /langchain@0.0.202(@pinecone-database/pinecone@1.1.2)(pdf-parse@1.1.1):
-    resolution: {integrity: sha512-c3O5FyNgcqLpEwK6iXh0Tmey3dczcgv1jhs25D+c4QFQNEfFuvteG6JzhR8HdK3z89SWX6MUSzul9qNXdmz9iQ==}
+  /langchain@0.0.203(@pinecone-database/pinecone@1.1.2)(pdf-parse@1.1.1):
+    resolution: {integrity: sha512-H41ik99zXVuqe6CqYoySE4p8TpeqB41KTSkHDf5xNBDG7Hvh1Oq1JyWKs4PaxkO04MagXdN21gIGz+E5djsEXA==}
     engines: {node: '>=18'}
     peerDependencies:
       '@aws-crypto/sha256-js': ^5.0.0
