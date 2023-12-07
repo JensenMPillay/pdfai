@@ -8,17 +8,17 @@ import SignInForm from "@/components/SignInForm";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import {
   Card,
-  CardDescription,
   CardHeader,
   CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
 } from "@/components/ui/card";
 import SignUpForm from "./SignUpForm";
 
 const AuthPage = ({
-  csrfToken,
   providers,
 }: {
-  csrfToken?: string;
   providers: Awaited<ReturnType<typeof getProviders>>;
 }) => {
   // Pathname
@@ -51,38 +51,38 @@ const AuthPage = ({
                   : "Create your Account with your Name, Email and Password."}
               </CardDescription>
             </CardHeader>
-            {isSignInPage ? (
-              <SignInForm csrfToken={csrfToken} />
-            ) : (
-              <SignUpForm csrfToken={csrfToken} />
-            )}
-            <div className="relative mb-2">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">
-                  Or continue with
-                </span>
-              </div>
-            </div>
-            <div className="m-2 grid grid-cols-1 gap-6">
-              {filteredProviders &&
-                Object.values(filteredProviders).map((provider) => (
-                  <div key={provider.id}>
-                    <AuthProvider provider={provider} />
-                  </div>
-                ))}
-            </div>
+            <CardContent>
+              {isSignInPage ? <SignInForm /> : <SignUpForm />}
 
-            <p className="mb-2 mt-2 text-center text-xs text-gray-700">
-              {isSignInPage ? "Don't" : "Already"} have an account?{" "}
-              <Link href={isSignInPage ? "/auth/sign-up" : "/auth/sign-in"}>
-                <span className="underline">
-                  {isSignInPage ? "Sign up" : "Sign in"}
-                </span>
-              </Link>
-            </p>
+              <div className="relative m-2">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-background px-2 text-muted-foreground">
+                    Or continue with
+                  </span>
+                </div>
+              </div>
+              <div className="m-2 grid grid-cols-1 gap-6">
+                {filteredProviders &&
+                  Object.values(filteredProviders).map((provider) => (
+                    <div key={provider.id}>
+                      <AuthProvider provider={provider} />
+                    </div>
+                  ))}
+              </div>
+            </CardContent>
+            <CardFooter className="flex flex-col">
+              <p className="mb-2 mt-2 text-center text-xs text-gray-700">
+                {isSignInPage ? "Don't" : "Already"} have an account?{" "}
+                <Link href={isSignInPage ? "/auth/sign-up" : "/auth/sign-in"}>
+                  <span className="underline">
+                    {isSignInPage ? "Sign up" : "Sign in"}
+                  </span>
+                </Link>
+              </p>
+            </CardFooter>
           </Card>
         </div>
       </div>
