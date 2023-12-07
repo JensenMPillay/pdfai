@@ -50,9 +50,9 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
           clearInterval(interval);
           return prevProgress;
         }
-        return prevProgress + 5;
+        return prevProgress + 1;
       });
-    }, 500);
+    }, 100);
 
     return interval;
   };
