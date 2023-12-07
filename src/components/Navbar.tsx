@@ -1,11 +1,10 @@
-import React from "react";
-import Link from "next/link";
-import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
+import { getServerSession } from "next-auth";
+import Link from "next/link";
+import { LoginLink, RegisterLink } from "./Links";
+import MaxWidthWrapper from "./MaxWidthWrapper";
 import MobileNav from "./MobileNav";
 import UserAccountNav from "./UserAccountNav";
-import MaxWidthWrapper from "./MaxWidthWrapper";
-import { LoginLink, RegisterLink } from "./Links";
 import { buttonVariants } from "./ui/button";
 
 export default async function Navbar() {

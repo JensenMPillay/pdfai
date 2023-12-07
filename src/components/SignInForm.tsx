@@ -1,15 +1,14 @@
 "use client";
-import React, { useState } from "react";
 import {
   SignInSchemaType,
   signInSchema,
 } from "@/lib/schemas/CredentialsSchema";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useToast } from "./ui/use-toast";
-import { Input } from "./ui/input";
+import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { Button, buttonVariants } from "./ui/button";
 import {
   Form,
@@ -20,7 +19,8 @@ import {
   FormLabel,
   FormMessage,
 } from "./ui/form";
-import { Loader2 } from "lucide-react";
+import { Input } from "./ui/input";
+import { useToast } from "./ui/use-toast";
 
 const SignInForm = () => {
   // Notifications

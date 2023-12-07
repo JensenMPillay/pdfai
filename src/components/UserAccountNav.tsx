@@ -1,6 +1,11 @@
-import Link from "next/link";
-import Image from "next/image";
 import { getUserSubscriptionPlan } from "@/lib/stripe";
+import { Gem } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { Icons } from "./Icons";
+import { LogoutLink } from "./Links";
+import { Avatar, AvatarFallback } from "./ui/avatar";
+import { Button } from "./ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,11 +13,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { Button } from "./ui/button";
-import { Avatar, AvatarFallback } from "./ui/avatar";
-import { Icons } from "./Icons";
-import { Gem } from "lucide-react";
-import { LogoutLink } from "./Links";
 
 interface UserAccountNavProps {
   email: string | undefined;

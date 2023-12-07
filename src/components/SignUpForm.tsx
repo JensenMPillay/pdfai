@@ -1,16 +1,16 @@
 "use client";
-import React from "react";
 import { trpc } from "@/app/_trpc/client";
 import {
   SignUpSchemaType,
   signUpSchema,
 } from "@/lib/schemas/CredentialsSchema";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { signIn } from "next-auth/react";
-import { useToast } from "./ui/use-toast";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Button, buttonVariants } from "./ui/button";
 import {
   Form,
   FormControl,
@@ -21,8 +21,7 @@ import {
   FormMessage,
 } from "./ui/form";
 import { Input } from "./ui/input";
-import { Button, buttonVariants } from "./ui/button";
-import { Loader2 } from "lucide-react";
+import { useToast } from "./ui/use-toast";
 
 const SignUpForm = () => {
   // Notifications

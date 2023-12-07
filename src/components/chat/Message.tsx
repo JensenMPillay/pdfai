@@ -1,8 +1,8 @@
-import React, { forwardRef } from "react";
 import { cn } from "@/lib/utils";
-import ReactMarkdown from "react-markdown";
-import { format } from "date-fns";
 import { ExtendedMessage } from "@/types/message";
+import { format } from "date-fns";
+import { forwardRef } from "react";
+import ReactMarkdown from "react-markdown";
 import { Icons } from "../Icons";
 
 type MessageProps = {

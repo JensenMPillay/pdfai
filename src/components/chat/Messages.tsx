@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useRef } from "react";
 import { trpc } from "@/app/_trpc/client";
+import { INFINITE_QUERY_LIMIT } from "@/config/infinite-query";
 import { ChatContext } from "@/context/ChatContext";
 import { useIntersection } from "@mantine/hooks";
-import Message from "./Message";
-import { INFINITE_QUERY_LIMIT } from "@/config/infinite-query";
 import { Loader2, MessageSquare } from "lucide-react";
+import { useContext, useEffect, useRef } from "react";
 import Skeleton from "react-loading-skeleton";
+import Message from "./Message";
 
 type MessagesProps = { fileId: string };
 

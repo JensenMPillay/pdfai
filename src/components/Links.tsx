@@ -1,6 +1,5 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import React from "react";
 import { buttonVariants } from "./ui/button";
 
 export function LoginLink() {

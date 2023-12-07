@@ -1,11 +1,10 @@
-import React from "react";
-import { notFound, redirect } from "next/navigation";
-import { db } from "@/db";
-import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
-import { getUserSubscriptionPlan } from "@/lib/stripe";
-import ChatWrapper from "@/components/chat/ChatWrapper";
 import PdfRenderer from "@/components/PdfRenderer";
+import ChatWrapper from "@/components/chat/ChatWrapper";
+import { db } from "@/db";
+import { getUserSubscriptionPlan } from "@/lib/stripe";
+import { getServerSession } from "next-auth";
+import { notFound, redirect } from "next/navigation";
 
 interface PageProps {
   params: {

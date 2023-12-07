@@ -1,19 +1,18 @@
-import React from "react";
-import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
-import { cn } from "@/lib/utils";
-import { PLANS } from "@/config/stripe";
-import Link from "next/link";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import UpgradeButton from "@/components/UpgradeButton";
+import { buttonVariants } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { PLANS } from "@/config/stripe";
+import { cn } from "@/lib/utils";
 import { ArrowRight, Check, HelpCircle, Minus } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
-import UpgradeButton from "@/components/UpgradeButton";
+import { getServerSession } from "next-auth";
+import Link from "next/link";
 
 type TypePricingItem = {
   plan: string;

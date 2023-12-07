@@ -1,14 +1,13 @@
 "use client";
 
-import React from "react";
 import { trpc } from "@/app/_trpc/client";
+import { PLANS } from "@/config/stripe";
+import { ChatContextProvider } from "@/context/ChatContext";
+import { ChevronLeft, Loader2, XCircle } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "../ui/button";
-import { ChevronLeft, Loader2, XCircle } from "lucide-react";
 import ChatInput from "./ChatInput";
-import { ChatContextProvider } from "@/context/ChatContext";
 import Messages from "./Messages";
-import { PLANS } from "@/config/stripe";
 
 interface ChatWrapperProps {
   isSubscribed: boolean;

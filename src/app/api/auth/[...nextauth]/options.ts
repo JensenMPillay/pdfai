@@ -1,8 +1,8 @@
-import type { NextAuthOptions } from "next-auth";
-import GitHubProvider from "next-auth/providers/github";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { randomBytes, randomUUID } from "crypto";
 import { db } from "@/db";
+import { randomBytes, randomUUID } from "crypto";
+import type { NextAuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import GitHubProvider from "next-auth/providers/github";
 // import { PrismaAdapter } from "@next-auth/prisma-adapter";
 const bcrypt = require("bcrypt");
 

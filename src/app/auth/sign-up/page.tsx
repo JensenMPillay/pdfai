@@ -1,8 +1,8 @@
-import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
+import AuthPage from "@/components/AuthPage";
+import { getServerSession } from "next-auth";
 import { getProviders } from "next-auth/react";
 import { redirect } from "next/navigation";
-import AuthPage from "@/components/AuthPage";
 
 export default async function Page() {
   // Redirection

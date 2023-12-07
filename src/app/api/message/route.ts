@@ -1,13 +1,13 @@
+import { db } from "@/db";
+import { openai } from "@/lib/openai";
+import { pinecone } from "@/lib/pinecone";
+import { sendMessageSchema } from "@/lib/schemas/SendMessageSchema";
+import { OpenAIStream, StreamingTextResponse } from "ai";
+import { OpenAIEmbeddings } from "langchain/embeddings/openai";
+import { PineconeStore } from "langchain/vectorstores/pinecone";
 import { getServerSession } from "next-auth";
 import { NextRequest } from "next/server";
 import { options } from "../auth/[...nextauth]/options";
-import { sendMessageSchema } from "@/lib/schemas/SendMessageSchema";
-import { db } from "@/db";
-import { OpenAIEmbeddings } from "langchain/embeddings/openai";
-import { pinecone } from "@/lib/pinecone";
-import { PineconeStore } from "langchain/vectorstores/pinecone";
-import { openai } from "@/lib/openai";
-import { OpenAIStream, StreamingTextResponse } from "ai";
 
 export const POST = async (req: NextRequest) => {
   // Endpoint for message to pdf file

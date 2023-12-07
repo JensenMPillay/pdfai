@@ -1,12 +1,6 @@
 "use client";
-import React, { useState } from "react";
 import { cn } from "@/lib/utils";
-import { pdfjs, Document, Page } from "react-pdf";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useResizeDetector } from "react-resize-detector";
-import { useToast } from "./ui/use-toast";
 import {
   ChevronDown,
   ChevronUp,
@@ -14,18 +8,24 @@ import {
   RotateCw,
   Search,
 } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Document, Page, pdfjs } from "react-pdf";
+import "react-pdf/dist/Page/AnnotationLayer.css";
+import "react-pdf/dist/Page/TextLayer.css";
+import { useResizeDetector } from "react-resize-detector";
+import SimpleBar from "simplebar-react";
+import { z } from "zod";
+import PdfFullscreen from "./PdfFullscreen";
 import { Button } from "./ui/button";
-import { Input } from "./ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import SimpleBar from "simplebar-react";
-import "react-pdf/dist/Page/AnnotationLayer.css";
-import "react-pdf/dist/Page/TextLayer.css";
-import PdfFullscreen from "./PdfFullscreen";
+import { Input } from "./ui/input";
+import { useToast } from "./ui/use-toast";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 

@@ -1,12 +1,12 @@
-import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Providers from "@/components/Providers";
+import { Toaster } from "@/components/ui/toaster";
 import { cn, constructMetadata } from "@/lib/utils";
 import { Inter } from "next/font/google";
-import Navbar from "@/components/Navbar";
 import { PropsWithChildren } from "react";
-import Providers from "@/components/Providers";
 import "react-loading-skeleton/dist/skeleton.css";
 import "simplebar-react/dist/simplebar.min.css";
-import { Toaster } from "@/components/ui/toaster";
+import "./globals.css";
 // import AuthProvider from "@/context/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });

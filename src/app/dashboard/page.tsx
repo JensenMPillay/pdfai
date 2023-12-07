@@ -1,10 +1,9 @@
-import React from "react";
-import { getServerSession } from "next-auth";
-import { options } from "../api/auth/[...nextauth]/options";
-import { redirect } from "next/navigation";
-import { db } from "@/db";
 import Dashboard from "@/components/Dashboard";
+import { db } from "@/db";
 import { getUserSubscriptionPlan } from "@/lib/stripe";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { options } from "../api/auth/[...nextauth]/options";
 
 export default async function Page() {
   const session = await getServerSession(options);
