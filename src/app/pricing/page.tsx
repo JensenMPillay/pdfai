@@ -115,7 +115,7 @@ const Page = async () => {
                         <TooltipTrigger className="ml-1.5 cursor-default">
                           <HelpCircle className="h-4 w-4 text-zinc-500" />
                         </TooltipTrigger>
-                        <TooltipContent className="w-80 p-2">
+                        <TooltipContent className="w-auto p-2">
                           How many PDFs you can upload per month.
                         </TooltipContent>
                       </Tooltip>
@@ -148,7 +148,7 @@ const Page = async () => {
                               <TooltipTrigger className="ml-1.5 cursor-default">
                                 <HelpCircle className="h-4 w-4 text-zinc-500" />
                               </TooltipTrigger>
-                              <TooltipContent className="w-80 p-2">
+                              <TooltipContent className="w-auto p-2">
                                 {footnote}
                               </TooltipContent>
                             </Tooltip>
