@@ -20,6 +20,7 @@ const AuthPage = ({
 }: {
   providers: Awaited<ReturnType<typeof getProviders>>;
 }) => {
+  console.log(providers);
   // Pathname
   const pathname = usePathname();
 
@@ -34,6 +35,8 @@ const AuthPage = ({
   } else {
     filteredProviders = providers;
   }
+
+  console.log(filteredProviders);
 
   return (
     <MaxWidthWrapper className="mb-8 max-w-5xl text-center">
