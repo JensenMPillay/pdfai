@@ -4,7 +4,6 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -133,7 +132,6 @@ const SignUpForm = () => {
                 />
               </FormControl>
               <FormMessage />
-              <FormDescription>This is your display name.</FormDescription>
             </FormItem>
           )}
         />
@@ -155,7 +153,6 @@ const SignUpForm = () => {
                 />
               </FormControl>
               <FormMessage />
-              <FormDescription>This is your email address.</FormDescription>
             </FormItem>
           )}
         />
@@ -177,7 +174,6 @@ const SignUpForm = () => {
                 />
               </FormControl>
               <FormMessage />
-              <FormDescription>This is your password.</FormDescription>
             </FormItem>
           )}
         />
@@ -190,7 +186,7 @@ const SignUpForm = () => {
               <FormControl>
                 <Input
                   className="mx-auto w-3/4"
-                  placeholder="password"
+                  placeholder="confirm password"
                   type="password"
                   autoCapitalize="off"
                   autoComplete="new-password"
@@ -199,7 +195,6 @@ const SignUpForm = () => {
                 />
               </FormControl>
               <FormMessage />
-              <FormDescription>Please confirm your password.</FormDescription>
             </FormItem>
           )}
         />

@@ -3,7 +3,6 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -91,7 +90,6 @@ const SignInForm = () => {
                 />
               </FormControl>
               <FormMessage />
-              <FormDescription>This is your email address.</FormDescription>
             </FormItem>
           )}
         />
@@ -113,7 +111,6 @@ const SignInForm = () => {
                 />
               </FormControl>
               <FormMessage />
-              <FormDescription>This is your password.</FormDescription>
             </FormItem>
           )}
         />
