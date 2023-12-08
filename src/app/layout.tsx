@@ -1,6 +1,6 @@
-import Providers from "@/components/Providers";
 import Navbar from "@/components/navbar/Navbar";
 import { Toaster } from "@/components/ui/toaster";
+import TRPCProviders from "@/context/TRPCProviders";
 import { cn, constructMetadata } from "@/lib/utils";
 import { Inter } from "next/font/google";
 import { PropsWithChildren } from "react";
@@ -17,7 +17,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" className="light">
       {/* <AuthProvider> */}
-      <Providers>
+      <TRPCProviders>
         <body
           className={cn(
             "grainy min-h-screen font-sans antialiased",
@@ -29,7 +29,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
           <Navbar />
           {children}
         </body>
-      </Providers>
+      </TRPCProviders>
       {/* </AuthProvider> */}
     </html>
   );
