@@ -171,7 +171,7 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
   );
 };
 
-const UploadButton = ({ isSubscribed }: { isSubscribed: boolean }) => {
+const FileUploadButton = ({ isSubscribed }: { isSubscribed: boolean }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
@@ -196,4 +196,4 @@ const UploadButton = ({ isSubscribed }: { isSubscribed: boolean }) => {
   );
 };
 
-export default UploadButton;
+export default FileUploadButton;

@@ -3,7 +3,7 @@ import { trpc } from "@/app/_trpc/client";
 import { ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 
-const UpgradeButton = () => {
+const UpgradePlanButton = () => {
   const { mutate: createStripeSession } = trpc.createStripeSession.useMutation({
     onSuccess: ({ url }) => {
       window.location.href = url ?? "/dashboard/billing";
@@ -17,4 +17,4 @@ const UpgradeButton = () => {
   );
 };
 
-export default UpgradeButton;
+export default UpgradePlanButton;

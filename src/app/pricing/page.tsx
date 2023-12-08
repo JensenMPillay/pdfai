@@ -1,6 +1,6 @@
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import UpgradeButton from "@/components/UpgradeButton";
+import UpgradePlanButton from "@/components/UpgradePlanButton";
 import { buttonVariants } from "@/components/ui/button";
 import {
   Tooltip,
@@ -180,7 +180,7 @@ const Page = async () => {
                         <ArrowRight className="ml-1.5 h-5 w-5" />
                       </Link>
                     ) : user ? (
-                      <UpgradeButton />
+                      <UpgradePlanButton />
                     ) : (
                       <Link
                         href="/auth/sign-in"
