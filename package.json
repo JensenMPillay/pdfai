@@ -6,8 +6,7 @@
     "dev": "concurrently \"next dev\" \"npx prisma studio\"",
     "build": "prisma generate && next build",
     "start": "next start",
-    "lint": "next lint",
-    "postinstall": "prisma generate"
+    "lint": "next lint"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
