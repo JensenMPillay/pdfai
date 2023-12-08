@@ -1,5 +1,5 @@
-import Navbar from "@/components/Navbar";
 import Providers from "@/components/Providers";
+import Navbar from "@/components/navbar/Navbar";
 import { Toaster } from "@/components/ui/toaster";
 import { cn, constructMetadata } from "@/lib/utils";
 import { Inter } from "next/font/google";

@@ -1,7 +1,7 @@
 "use client";
-import AuthProvider from "@/components/AuthProvider";
+import AuthProvider from "@/app/auth/components/AuthProvider";
+import SignInForm from "@/app/auth/sign-in/components/SignInForm";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import SignInForm from "@/components/SignInForm";
 import {
   Card,
   CardContent,
@@ -13,7 +13,7 @@ import {
 import { getProviders } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import SignUpForm from "./SignUpForm";
+import SignUpForm from "../sign-up/components/SignUpForm";
 
 const AuthPage = ({
   providers,

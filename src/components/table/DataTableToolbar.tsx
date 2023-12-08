@@ -3,10 +3,10 @@
 import { uploadStatuses } from "@/config/upload-status";
 import { Table } from "@tanstack/react-table";
 import { XCircleIcon } from "lucide-react";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 import DataTableFacetedFilter from "./DataTableFacetedFilter";
 import DataTableViewOptions from "./DataTableViewOptions";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;

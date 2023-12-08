@@ -1,12 +1,12 @@
-import { UploadStatus } from "@prisma/client";
-import { HelpCircle } from "lucide-react";
-import { Badge } from "./ui/badge";
+import { Badge } from "@/components/ui/badge";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "./ui/tooltip";
+} from "@/components/ui/tooltip";
+import { UploadStatus } from "@prisma/client";
+import { HelpCircle } from "lucide-react";
 
 const FileStatusBadge = ({ value }: { value: string }) => {
   const variant = (() => {

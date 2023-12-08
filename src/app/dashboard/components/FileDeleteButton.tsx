@@ -1,7 +1,7 @@
 import { trpc } from "@/app/_trpc/client";
+import { Button } from "@/components/ui/button";
 import { Loader2, Trash2 } from "lucide-react";
 import { useState } from "react";
-import { Button } from "./ui/button";
 
 const FileDeleteButton = ({ fileId }: { fileId: string }) => {
   // Track DeletingFile for Loading Status

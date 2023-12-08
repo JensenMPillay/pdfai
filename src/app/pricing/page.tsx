@@ -1,6 +1,6 @@
 import { options } from "@/app/api/auth/[...nextauth]/options";
+import UpgradePlanButton from "@/app/pricing/components/UpgradePlanButton";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import UpgradePlanButton from "@/components/UpgradePlanButton";
 import { buttonVariants } from "@/components/ui/button";
 import {
   Tooltip,

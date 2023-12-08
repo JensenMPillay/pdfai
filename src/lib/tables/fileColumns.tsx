@@ -1,10 +1,10 @@
 "use client";
-import FileStatusBadge from "@/components/FileStatusBadge";
-import FileTableActionButtons from "@/components/FileTableActionButtons";
-import TableHeader from "@/components/TableHeader";
+import FileStatusBadge from "@/app/dashboard/components/FileStatusBadge";
+import FileTableActionButtons from "@/app/dashboard/components/FileTableActionButtons";
+import TableHeader from "@/components/table/TableHeader";
 import { Checkbox } from "@/components/ui/checkbox";
 import { File } from "@/types/file";
-import { ColumnDef, Row } from "@tanstack/react-table";
+import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 
 export const fileColumns: ColumnDef<File>[] = [
@@ -16,7 +16,7 @@ export const fileColumns: ColumnDef<File>[] = [
           table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
-        onCheckedChange={(value: Row<File>) =>
+        onCheckedChange={(value: string | boolean) =>
           table.toggleAllPageRowsSelected(!!value)
         }
         aria-label="Select all"
@@ -25,7 +25,9 @@ export const fileColumns: ColumnDef<File>[] = [
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={(value: Row<File>) => row.toggleSelected(!!value)}
+        onCheckedChange={(value: string | boolean) =>
+          row.toggleSelected(!!value)
+        }
         aria-label="Select row"
       />
     ),

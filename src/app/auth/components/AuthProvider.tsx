@@ -1,7 +1,7 @@
 "use client";
+import { getProviderIcon } from "@/components/Icons";
+import { Button } from "@/components/ui/button";
 import { ClientSafeProvider, signIn } from "next-auth/react";
-import { getProviderIcon } from "./Icons";
-import { Button } from "./ui/button";
 
 type AuthProviderProps = {
   provider: ClientSafeProvider;

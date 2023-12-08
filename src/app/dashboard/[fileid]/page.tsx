@@ -1,6 +1,6 @@
 import { options } from "@/app/api/auth/[...nextauth]/options";
-import PdfRenderer from "@/components/PdfRenderer";
-import ChatWrapper from "@/components/chat/ChatWrapper";
+import ChatWrapper from "@/app/dashboard/[fileid]/components/ChatWrapper";
+import PdfRenderer from "@/app/dashboard/[fileid]/components/PdfRenderer";
 import { db } from "@/db";
 import { getUserSubscriptionPlan } from "@/lib/stripe";
 import { getServerSession } from "next-auth";

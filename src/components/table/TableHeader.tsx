@@ -1,18 +1,17 @@
 import { cn } from "@/lib/utils";
-import { File } from "@/types/file";
 import { Column } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
-const TableHeader = ({
+function TableHeader<TData, TValue>({
   column,
   title,
   position,
 }: {
-  column: Column<File>;
+  column: Column<TData, TValue>;
   title: string;
   position: string;
-}) => {
+}) {
   return (
     <div className="flex w-full">
       <Button
@@ -30,6 +29,6 @@ const TableHeader = ({
       </Button>
     </div>
   );
-};
+}
 
 export default TableHeader;

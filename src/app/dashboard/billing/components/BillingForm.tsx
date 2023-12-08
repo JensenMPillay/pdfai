@@ -1,19 +1,19 @@
 "use client";
 
 import { trpc } from "@/app/_trpc/client";
-import { getUserSubscriptionPlan } from "@/lib/stripe";
-import { format } from "date-fns";
-import { Loader2 } from "lucide-react";
-import MaxWidthWrapper from "./MaxWidthWrapper";
-import { Button } from "./ui/button";
+import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "./ui/card";
-import { useToast } from "./ui/use-toast";
+} from "@/components/ui/card";
+import { useToast } from "@/components/ui/use-toast";
+import { getUserSubscriptionPlan } from "@/lib/stripe";
+import { format } from "date-fns";
+import { Loader2 } from "lucide-react";
 
 type BillingFormProps = {
   // Type of Return of Async Function

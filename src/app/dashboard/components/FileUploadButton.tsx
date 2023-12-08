@@ -1,17 +1,17 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useState } from "react";
-import { Button } from "./ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
 
 import { trpc } from "@/app/_trpc/client";
+import { Progress } from "@/components/ui/progress";
+import { useToast } from "@/components/ui/use-toast";
 import { PLANS } from "@/config/stripe";
 import { useUploadThing } from "@/lib/uploadthing";
 import { Cloud, File, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Dropzone from "react-dropzone";
-import { Progress } from "./ui/progress";
-import { useToast } from "./ui/use-toast";
 
 // DropZone
 const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {

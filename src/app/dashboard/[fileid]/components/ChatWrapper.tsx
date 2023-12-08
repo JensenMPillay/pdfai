@@ -1,11 +1,10 @@
 "use client";
-
 import { trpc } from "@/app/_trpc/client";
+import { buttonVariants } from "@/components/ui/button";
 import { PLANS } from "@/config/stripe";
 import { ChatContextProvider } from "@/context/ChatContext";
 import { ChevronLeft, Loader2, XCircle } from "lucide-react";
 import Link from "next/link";
-import { buttonVariants } from "../ui/button";
 import ChatInput from "./ChatInput";
 import Messages from "./Messages";
 

@@ -1,10 +1,10 @@
 "use client";
 import { trpc } from "@/app/_trpc/client";
+import { DataTable } from "@/components/table/DataTable";
 import { getUserSubscriptionPlan } from "@/lib/stripe";
 import { fileColumns } from "@/lib/tables/fileColumns";
 import { Ghost } from "lucide-react";
 import Skeleton from "react-loading-skeleton";
-import { DataTable } from "./DataTable";
 import FileUploadButton from "./FileUploadButton";
 
 type DashboardProps = {

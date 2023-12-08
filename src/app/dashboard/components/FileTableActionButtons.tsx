@@ -1,7 +1,7 @@
+import { buttonVariants } from "@/components/ui/button";
 import { FileTextIcon } from "lucide-react";
 import Link from "next/link";
 import FileDeleteButton from "./FileDeleteButton";
-import { buttonVariants } from "./ui/button";
 
 type Props = {};
 

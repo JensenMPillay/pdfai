@@ -2,17 +2,17 @@ import { getUserSubscriptionPlan } from "@/lib/stripe";
 import { Gem } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Icons } from "./Icons";
-import { LogoutLink } from "./Links";
-import { Avatar, AvatarFallback } from "./ui/avatar";
-import { Button } from "./ui/button";
+import { Icons } from "../Icons";
+import { LogoutLink } from "../Links";
+import { Avatar, AvatarFallback } from "../ui/avatar";
+import { Button } from "../ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+} from "../ui/dropdown-menu";
 
 interface UserAccountNavProps {
   email: string | undefined;
