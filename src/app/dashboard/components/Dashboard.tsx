@@ -3,7 +3,6 @@ import { trpc } from "@/app/_trpc/client";
 import { DataTable } from "@/components/table/DataTable";
 import { getUserSubscriptionPlan } from "@/lib/stripe";
 import { fileColumns } from "@/lib/tables/fileColumns";
-import { Ghost } from "lucide-react";
 import Skeleton from "react-loading-skeleton";
 import FileUploadButton from "./FileUploadButton";
 
@@ -23,16 +22,10 @@ function Dashboard({ subscriptionPlan }: DashboardProps) {
       </div>
 
       {/* Display User Files */}
-      {files ? (
-        <DataTable columns={fileColumns} data={files} />
-      ) : isLoading ? (
+      {isLoading ? (
         <Skeleton height={75} className="my-2" count={5} />
       ) : (
-        <div className="mt-16 flex flex-col items-center gap-2">
-          <Ghost className="h-8 w-8 text-zinc-800" />
-          <h3 className="text-xl font-semibold">Pretty empty around here</h3>
-          <p>Let&apos;s upload your first PDF.</p>
-        </div>
+        files && <DataTable columns={fileColumns} data={files} />
       )}
     </main>
   );

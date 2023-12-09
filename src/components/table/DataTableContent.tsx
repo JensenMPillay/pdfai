@@ -3,6 +3,7 @@ import {
   Table as TableType,
   flexRender,
 } from "@tanstack/react-table";
+import { Ghost } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -61,7 +62,13 @@ export default function DataTableContent<TData, TValue>({
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
+                <div className="my-8 flex flex-col items-center gap-2">
+                  <Ghost className="h-8 w-8 text-zinc-800" />
+                  <h3 className="text-xl font-semibold">
+                    Pretty empty around here
+                  </h3>
+                  <p>Let&apos;s upload your first PDF.</p>
+                </div>
               </TableCell>
             </TableRow>
           )}
