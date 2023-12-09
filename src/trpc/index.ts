@@ -1,4 +1,3 @@
-import { options } from "@/app/api/auth/[...nextauth]/options";
 import { utapi } from "@/app/api/uploadthing/core";
 import { INFINITE_QUERY_LIMIT } from "@/config/infinite-query";
 import { PLANS } from "@/config/stripe";
@@ -8,38 +7,11 @@ import { getUserSubscriptionPlan, stripe } from "@/lib/stripe";
 import { absoluteUrl } from "@/lib/utils";
 import { TRPCError } from "@trpc/server";
 import { PDFLoader } from "langchain/document_loaders/fs/pdf";
-import { getServerSession } from "next-auth";
 import { z } from "zod";
 import { privateProcedure, publicProcedure, router } from "./trpc";
 const bcrypt = require("bcrypt");
 
 export const appRouter = router({
-  // GET
-  authCallback: publicProcedure.query(async () => {
-    const session = await getServerSession(options);
-    const user = session?.user;
-    if (!session || !user?.id || !user?.email) {
-      new TRPCError({ code: "UNAUTHORIZED" });
-    }
-
-    const dbUser = await db.user.findFirst({
-      where: {
-        id: user.id,
-      },
-    });
-
-    if (!dbUser) {
-      await db.user.create({
-        data: {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-          image: user.image,
-        },
-      });
-    }
-    return { success: true };
-  }),
   registerUser: publicProcedure
     // POST
     .input(signUpSchema)

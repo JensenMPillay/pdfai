@@ -20,7 +20,7 @@ export default async function Page({ params }: PageProps) {
   const session = await getServerSession(options);
   const user = session?.user;
 
-  if (!user || !user.id) redirect(`/auth-callback?origin=dashboard/${fileid}`);
+  if (!user || !user.id) redirect(`/auth/sign-in`);
 
   //   Db Call
   const file = await db.file.findFirst({

@@ -3,4 +3,4 @@ export { default } from "next-auth/middleware";
 
 // Applies next-auth only to matching routes (REGEX or Not)
 // Ref: https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
-export const config = { matcher: ["/dashboard/:path*", "/auth-callback"] };
+export const config = { matcher: ["/dashboard/:path*"] };
