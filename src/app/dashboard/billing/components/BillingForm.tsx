@@ -55,13 +55,14 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
           </CardHeader>
 
           <CardFooter className="flex flex-col items-start space-y-2 md:flex-row md:justify-between md:space-x-0">
-            <Button type="submit">
+            <Button type="submit" className="text-center">
               {isLoading ? (
-                <Loader2 className="mr-4 h-4 w-4 animate-spin" />
-              ) : null}
-              {subscriptionPlan.isSubscribed
-                ? "Manage Subscription"
-                : "Upgrade to PRO"}
+                <Loader2 className="mx-auto h-4 w-4 animate-spin" />
+              ) : subscriptionPlan.isSubscribed ? (
+                "Manage Subscription"
+              ) : (
+                "Upgrade to PRO"
+              )}
             </Button>
 
             {subscriptionPlan.isSubscribed ? (
