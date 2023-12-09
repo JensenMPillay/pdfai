@@ -186,7 +186,7 @@ const SignUpForm = () => {
               <FormControl>
                 <Input
                   className="mx-auto w-3/4"
-                  placeholder="confirm password"
+                  placeholder="confirmation password"
                   type="password"
                   autoCapitalize="off"
                   autoComplete="new-password"
