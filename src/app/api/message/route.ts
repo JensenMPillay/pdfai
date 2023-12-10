@@ -1,10 +1,9 @@
 import { db } from "@/db";
 import { openai } from "@/lib/openai";
-import { pinecone } from "@/lib/pinecone";
+import { getResultsFromVectorizedDocumentsFile } from "@/lib/pinecone";
 import { sendMessageSchema } from "@/lib/schemas/SendMessageSchema";
+import { Message } from "@prisma/client";
 import { OpenAIStream, StreamingTextResponse } from "ai";
-import { OpenAIEmbeddings } from "langchain/embeddings/openai";
-import { PineconeStore } from "langchain/vectorstores/pinecone";
 import { getServerSession } from "next-auth";
 import { NextRequest } from "next/server";
 import { options } from "../auth/[...nextauth]/options";
@@ -38,6 +37,7 @@ export const POST = async (req: NextRequest) => {
   //   Error File
   if (!file) return new Response("Not Found.", { status: 404 });
 
+  // DB Create
   await db.message.create({
     data: {
       text: message,
@@ -47,21 +47,11 @@ export const POST = async (req: NextRequest) => {
     },
   });
 
-  // Vectorization of Message
-  const embeddings = new OpenAIEmbeddings({
-    openAIApiKey: process.env.OPENAI_API_KEY,
+  // get Results From Vectorization
+  const results = await getResultsFromVectorizedDocumentsFile({
+    file: file,
+    message: message,
   });
-
-  // Db Indexes
-  const pineconeIndex = pinecone.Index("pdfai");
-
-  // Vector Store
-  const vectorStore = await PineconeStore.fromExistingIndex(embeddings, {
-    pineconeIndex,
-  });
-
-  // Results by Similarity of Vectors
-  const results = await vectorStore.similaritySearch(message, 4);
 
   // PrevMessages
   const prevMessages = await db.message.findMany({
@@ -75,7 +65,7 @@ export const POST = async (req: NextRequest) => {
   });
 
   // Formatted PrevMessages for OpenAI
-  const formattedPrevMessages = prevMessages.map((msg) => ({
+  const formattedPrevMessages = prevMessages.map((msg: Message) => ({
     role: msg.isUserMessage ? ("user" as const) : ("assistant" as const),
     content: msg.text,
   }));
@@ -89,11 +79,11 @@ export const POST = async (req: NextRequest) => {
       {
         role: "system",
         content:
-          "Use the following pieces of context (or previous conversaton if needed) to answer the users question in markdown format.",
+          "Please be brief, precise, and concise, using the following pieces of context (or previous conversation if needed) to answer the user's question in markdown format.",
       },
       {
         role: "user",
-        content: `Use the following pieces of context (or previous conversaton if needed) to answer the users question in markdown format. \nIf you don't know the answer, just say that you don't know, don't try to make up an answer.
+        content: `Please be brief, precise, and concise, using the following pieces of context (or previous conversation if needed) to answer the user's question in markdown format. \nIf you don't know the answer, just say that you don't know, don't try to make up an answer.
         
   \n----------------\n
   
@@ -106,7 +96,7 @@ export const POST = async (req: NextRequest) => {
   \n----------------\n
   
   CONTEXT:
-  ${results.map((r) => r.pageContent).join("\n\n")}
+  ${results && results.map((r) => r.pageContent).join("\n\n")}
   
   USER INPUT: ${message}`,
       },

@@ -1,6 +1,10 @@
+import { PLANS } from "@/config/stripe";
+import { File } from "@prisma/client";
 import { clsx, type ClassValue } from "clsx";
 import { Metadata } from "next";
 import { twMerge } from "tailwind-merge";
+import { getUserSubscriptionPlan } from "./stripe";
+import { getDocumentsFile } from "./uploadthing";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -12,6 +16,31 @@ export function absoluteUrl(path: string) {
   if (process.env.VERCEL_URL)
     return `https://pdfai-jensenmpillay.vercel.app${path}`;
   return `http://localhost:${process.env.PORT ?? 3000}${path}`;
+}
+
+export async function isPlanExceeded({ file }: { file: File }) {
+  const pageLevelDocs = await getDocumentsFile({ file: file });
+
+  // Get File Length
+  const pagesAmt = pageLevelDocs.length;
+
+  // Verify Plan Exceeded
+  const subscriptionPlan = await getUserSubscriptionPlan();
+  const { isSubscribed } = subscriptionPlan;
+
+  // Get Number of Pages
+  const isFreeExceeded =
+    pagesAmt > PLANS.find((plan) => plan.name === "Free")!.pagesPerPdf;
+
+  const isProExceeded =
+    pagesAmt > PLANS.find((plan) => plan.name === "Pro")!.pagesPerPdf;
+
+  // Get File/Plan Status
+  const isExceeded =
+    (isSubscribed && isProExceeded) || (!isSubscribed && isFreeExceeded);
+
+  // Return Boolean
+  return isExceeded;
 }
 
 // Basic Metadata Boilerplate
