@@ -25,10 +25,6 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
 
   const { toast } = useToast();
 
-  const { startUpload } = useUploadThing(
-    isSubscribed ? "proPlanUploader" : "freePlanUploader",
-  );
-
   // Sync Back -> Front
   const { mutate: startPolling } = trpc.getFile.useMutation({
     onSuccess: (file) => {
@@ -37,14 +33,63 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
     },
     retry: true,
     retryDelay: 500,
+    onError: () => {
+      return toast({
+        title: "Something went wrong...",
+        description: "Please reload the page and try again.",
+        variant: "destructive",
+      });
+    },
   });
+
+  const { startUpload } = useUploadThing(
+    isSubscribed ? "proPlanUploader" : "freePlanUploader",
+    {
+      onBeforeUploadBegin: (files) => {
+        // Uploading
+        setIsUploading(true);
+
+        // Start Progress
+        startSimulatedProgress();
+        return files;
+      },
+      onClientUploadComplete: (res) => {
+        // Destructuring From a Array (FileResponse[])
+        const [fileResponse] = res;
+
+        const key = fileResponse?.key;
+
+        // Progress
+        stopSimulatedProgress();
+        setUploadProgress(100);
+
+        // Sync UploadThing & TRPC
+        return startPolling({ key });
+      },
+      onUploadError: (e) => {
+        // Progres
+        stopSimulatedProgress();
+        setIsUploading(false);
+
+        // Error
+        return toast({
+          title: "Something went wrong...",
+          description:
+            "Your file may be too large or not a valid PDF. Please upload an other file.",
+          variant: "destructive",
+        });
+      },
+    },
+  );
+
+  let interval: NodeJS.Timeout;
 
   // Function to Handle Simulated Progress
   const startSimulatedProgress = () => {
     setUploadProgress(0);
 
     // Interval for Progressing
-    const interval = setInterval(() => {
+    interval = setInterval(() => {
       setUploadProgress((prevProgress) => {
         if (prevProgress >= 95) {
           clearInterval(interval);
@@ -57,46 +102,16 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
     return interval;
   };
 
+  const stopSimulatedProgress = () => {
+    clearInterval(interval);
+  };
+
   return (
     <Dropzone
       multiple={false}
       onDrop={async (acceptedFile) => {
-        // Uploading
-        setIsUploading(true);
-
-        // Start Progress
-        const progressInterval = startSimulatedProgress();
-
         // Handle File Uploading
-        const res = await startUpload(acceptedFile);
-
-        if (!res) {
-          return toast({
-            title: "Something went wrong...",
-            description:
-              "Your file may be too large. Please reload the page and try again.",
-            variant: "destructive",
-          });
-        }
-
-        // Destructuring From a Array (FileResponse[])
-        const [fileResponse] = res;
-
-        const key = fileResponse?.key;
-
-        // Handle Error
-        if (!key) {
-          return toast({
-            title: "Something went wrong",
-            description: "Please try again later",
-            variant: "destructive",
-          });
-        }
-
-        clearInterval(progressInterval);
-        setUploadProgress(100);
-
-        startPolling({ key });
+        await startUpload(acceptedFile);
       }}
     >
       {({ getRootProps, getInputProps, acceptedFiles }) => (
