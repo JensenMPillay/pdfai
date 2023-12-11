@@ -1,14 +1,12 @@
 import { PLANS } from "@/config/stripe";
 import { db } from "@/db";
-import { pinecone } from "@/lib/pinecone";
+import { vectorizeDocumentsFile } from "@/lib/pinecone";
 import { getUserSubscriptionPlan } from "@/lib/stripe";
-import { PDFLoader } from "langchain/document_loaders/fs/pdf";
-import { OpenAIEmbeddings } from "langchain/embeddings/openai";
-import { PineconeStore } from "langchain/vectorstores/pinecone";
 import { getServerSession } from "next-auth";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UTApi } from "uploadthing/server";
 import { options } from "../auth/[...nextauth]/options";
+import { isPlanExceeded } from "../lib/utils";
 
 export const utapi = new UTApi();
 
@@ -50,6 +48,7 @@ const onUploadComplete = async ({
 
   if (isFileExists) return;
 
+  // DB Create
   const createdFile = await db.file.create({
     data: {
       key: file.key,
@@ -61,34 +60,13 @@ const onUploadComplete = async ({
   });
 
   try {
-    // Get Real File
-    const response = await fetch(createdFile.url);
-    //   `https://uploadthing-prod.s3.us-west-2.amazonaws.com/${file.key}`,
-    // );
+    // Vectorization && Indexation of Document
+    if (createdFile) vectorizeDocumentsFile({ file: createdFile });
 
-    // Get File Content
-    const blob = await response.blob();
+    // Get File/Plan Status
+    const isExceeded = await isPlanExceeded({ file: createdFile });
 
-    // Load File
-    const loader = new PDFLoader(blob);
-
-    // Get File Docs
-    const pageLevelDocs = await loader.load();
-
-    // Get File Length
-    const pagesAmt = pageLevelDocs.length;
-
-    // Verify Plan Exceeded
-    const { subscriptionPlan } = metadata;
-    const { isSubscribed } = subscriptionPlan;
-
-    const isFreeExceeded =
-      pagesAmt > PLANS.find((plan) => plan.name === "Free")!.pagesPerPdf;
-
-    const isProExceeded =
-      pagesAmt > PLANS.find((plan) => plan.name === "Pro")!.pagesPerPdf;
-
-    if ((isSubscribed && isProExceeded) || (!isSubscribed && isFreeExceeded)) {
+    if (isExceeded) {
       await db.file.update({
         data: {
           uploadStatus: "FAILED",
@@ -98,18 +76,7 @@ const onUploadComplete = async ({
         },
       });
     } else {
-      // Vectorization && Indexation of Document
-      const pineconeIndex = pinecone.Index("pdfai");
-
-      const embeddings = new OpenAIEmbeddings({
-        openAIApiKey: process.env.OPENAI_API_KEY,
-      });
-
-      await PineconeStore.fromDocuments(pageLevelDocs, embeddings, {
-        pineconeIndex,
-        // namespace: createdFile.id,
-      });
-
+      // DB Update
       await db.file.update({
         data: {
           uploadStatus: "SUCCESS",

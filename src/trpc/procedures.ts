@@ -1,14 +1,15 @@
+import { isPlanExceeded } from "@/app/api/lib/utils";
 import { utapi } from "@/app/api/uploadthing/core";
 import { INFINITE_QUERY_LIMIT } from "@/config/infinite-query";
 import { PLANS } from "@/config/stripe";
 import { db } from "@/db";
 import { getDbFile, getDbUser } from "@/db/utils";
+import { deleteVectorizedDocumentsFile } from "@/lib/pinecone";
 import { signUpSchema } from "@/lib/schemas/CredentialsSchema";
 import { getUserSubscriptionPlan, stripe } from "@/lib/stripe";
 import { absoluteUrl } from "@/lib/utils";
 import { UploadStatus } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
-import { PDFLoader } from "langchain/document_loaders/fs/pdf";
 import { z } from "zod";
 import { privateProcedure, publicProcedure } from "./trpc";
 const bcrypt = require("bcrypt");
@@ -151,6 +152,9 @@ export const deleteFileProcedure = privateProcedure
     // Delete UploadThing File
     await utapi.deleteFiles(file.key);
 
+    // Delete Pinecone Documents File
+    await deleteVectorizedDocumentsFile({ file: file });
+
     // RETURN
     return file;
   });
@@ -170,32 +174,11 @@ export const getFileUploadStatusProcedure = privateProcedure
     // Error
     if (!file) return { status: "PENDING" as UploadStatus };
 
-    // Get Real File
-    const response = await fetch(file.url);
+    // Get File/Plan Status
+    const isExceeded = await isPlanExceeded({ file: file });
 
-    // Get File Content
-    const blob = await response.blob();
-
-    // Load File
-    const loader = new PDFLoader(blob);
-
-    // Get File Docs
-    const pageLevelDocs = await loader.load();
-
-    // Get File Length
-    const pagesAmt = pageLevelDocs.length;
-
-    // Verify Plan Exceeded
-    const subscriptionPlan = await getUserSubscriptionPlan();
-    const { isSubscribed } = subscriptionPlan;
-
-    const isFreeExceeded =
-      pagesAmt > PLANS.find((plan) => plan.name === "Free")!.pagesPerPdf;
-
-    const isProExceeded =
-      pagesAmt > PLANS.find((plan) => plan.name === "Pro")!.pagesPerPdf;
-
-    if ((isSubscribed && isProExceeded) || (!isSubscribed && isFreeExceeded)) {
+    // Update Status
+    if (isExceeded) {
       await db.file.update({
         data: {
           uploadStatus: "FAILED",

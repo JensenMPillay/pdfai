@@ -88,7 +88,7 @@ export const ChatContextProvider = ({
           // Changing LatestPage Messages Manually
           latestPage.messages = [
             {
-              createdAt: new Date().toISOString(),
+              createdAt: new Date(),
               id: crypto.randomUUID(),
               text: message,
               isUserMessage: true,
@@ -116,7 +116,7 @@ export const ChatContextProvider = ({
       setMessage(backupMessage.current);
       utils.getFileMessages.setData(
         { fileId },
-        { messages: context?.previousMessages ?? [] },
+        { messages: context?.previousMessages ?? [], nextCursor: undefined },
       );
     },
     // Handle Success w/ AI Response : Stream
@@ -169,7 +169,7 @@ export const ChatContextProvider = ({
                 if (!isAiResponseCreated) {
                   updatedMessages = [
                     {
-                      createdAt: new Date().toISOString(),
+                      createdAt: new Date(),
                       id: "ai-response",
                       text: accResponse,
                       isUserMessage: false,

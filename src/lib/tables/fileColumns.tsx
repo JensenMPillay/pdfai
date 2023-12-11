@@ -3,7 +3,7 @@ import FileStatusBadge from "@/app/dashboard/components/FileStatusBadge";
 import FileTableActionButtons from "@/app/dashboard/components/FileTableActionButtons";
 import TableHeader from "@/components/table/TableHeader";
 import { Checkbox } from "@/components/ui/checkbox";
-import { File } from "@/types/file";
+import { File } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 

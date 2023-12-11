@@ -4,6 +4,7 @@ import { absoluteUrl } from "@/lib/utils";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
 import { PropsWithChildren, useState } from "react";
+import superjson from "superjson";
 
 function TRPCProviders({ children }: PropsWithChildren) {
   const [queryClient] = useState(() => new QueryClient());
@@ -24,6 +25,7 @@ function TRPCProviders({ children }: PropsWithChildren) {
           // },
         }),
       ],
+      transformer: superjson,
     }),
   );
   return (
