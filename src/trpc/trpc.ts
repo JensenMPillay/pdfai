@@ -1,12 +1,15 @@
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { TRPCError, initTRPC } from "@trpc/server";
 import { getServerSession } from "next-auth";
+import superjson from 'superjson';
 
 /**
  * Initialization of tRPC backend
  * Should be done only once per backend!
  */
-const t = initTRPC.create();
+const t = initTRPC.create({
+  transformer: superjson,
+});
 const middleware = t.middleware;
 
 const isAuth = middleware(async (opts) => {
