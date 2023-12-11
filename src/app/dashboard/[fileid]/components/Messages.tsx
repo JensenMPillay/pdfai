@@ -33,7 +33,7 @@ const Messages = ({ fileId }: MessagesProps) => {
 
   // Loading Component
   const loadingMessage = {
-    createdAt: new Date().toISOString(),
+    createdAt: new Date(),
     id: "loading-message",
     isUserMessage: false,
     text: (
