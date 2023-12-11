@@ -8,12 +8,13 @@ type RouterOutput = inferRouterOutputs<AppRouter>;
 type Messages = RouterOutput["getFileMessages"]["messages"];
 
 // Get Type /w text (which can only be string here)
-type OmitText = Omit<Messages[number], "text">;
+type OmitTextAndDate = Omit<Messages[number], "text" | "createdAt">;
 
 // Create new Type for text (string | JSX)
-type ExtendedText = {
+type ExtendedTextAndDate = {
   text: string | React.JSX.Element;
+  createdAt: Date | string;
 };
 
 // Combine Message Type /w Text & new Text Type
-export type ExtendedMessage = OmitText & ExtendedText;
+export type ExtendedMessage = OmitTextAndDate & ExtendedTextAndDate;
