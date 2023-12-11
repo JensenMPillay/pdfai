@@ -8,7 +8,6 @@ import {
   registerUserProcedure,
 } from "./procedures";
 import { router } from "./trpc";
-const bcrypt = require("bcrypt");
 
 export const appRouter = router({
   registerUser: registerUserProcedure,
