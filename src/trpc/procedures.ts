@@ -1,3 +1,4 @@
+import { isPlanExceeded } from "@/app/api/lib/utils";
 import { utapi } from "@/app/api/uploadthing/core";
 import { INFINITE_QUERY_LIMIT } from "@/config/infinite-query";
 import { PLANS } from "@/config/stripe";
@@ -6,7 +7,7 @@ import { getDbFile, getDbUser } from "@/db/utils";
 import { deleteVectorizedDocumentsFile } from "@/lib/pinecone";
 import { signUpSchema } from "@/lib/schemas/CredentialsSchema";
 import { getUserSubscriptionPlan, stripe } from "@/lib/stripe";
-import { absoluteUrl, isPlanExceeded } from "@/lib/utils";
+import { absoluteUrl } from "@/lib/utils";
 import { UploadStatus } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";

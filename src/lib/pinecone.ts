@@ -1,15 +1,15 @@
+import { getDocumentsFile } from "@/app/api/lib/utils";
 import { Pinecone } from "@pinecone-database/pinecone";
 import { File } from "@prisma/client";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { PineconeStore } from "langchain/vectorstores/pinecone";
-import { getDocumentsFile } from "./uploadthing";
 
 export const pinecone = new Pinecone({
   apiKey: process.env.PINECONE_API_KEY!,
   environment: "gcp-starter",
 });
 
-export const vectorizeDocumentsFile = async ({ file }: { file: File }) => {
+export async function vectorizeDocumentsFile({ file }: { file: File }) {
   // Db Indexes
   const pineconeIndex = pinecone.Index("pdfai");
 
@@ -31,15 +31,15 @@ export const vectorizeDocumentsFile = async ({ file }: { file: File }) => {
 
   // Return PineconeStore
   return documentsFileVectorized;
-};
+}
 
-export const getResultsFromVectorizedDocumentsFile = async ({
+export async function getResultsFromVectorizedDocumentsFile({
   file,
   message,
 }: {
   file: File;
   message: string;
-}) => {
+}) {
   // Db Indexes
   const pineconeIndex = pinecone.Index("pdfai");
 
@@ -59,13 +59,9 @@ export const getResultsFromVectorizedDocumentsFile = async ({
 
   // Return Documents[]
   return results;
-};
+}
 
-export const deleteVectorizedDocumentsFile = async ({
-  file,
-}: {
-  file: File;
-}) => {
+export async function deleteVectorizedDocumentsFile({ file }: { file: File }) {
   // Db Indexes
   const pineconeIndex = pinecone.Index("pdfai");
 
@@ -81,4 +77,4 @@ export const deleteVectorizedDocumentsFile = async ({
   });
 
   return await vectorStore.delete({ deleteAll: true, namespace: file.id });
-};
+}
