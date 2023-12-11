@@ -16,7 +16,7 @@ const Messages = ({ fileId }: MessagesProps) => {
   const { isLoading: isAiThinking } = useContext(ChatContext);
   // Get Messages Data
   const { data, isLoading, fetchNextPage } =
-    trpc.getFileMessages.useInfiniteQuery(
+    trpc.file.getFileMessages.useInfiniteQuery(
       {
         fileId,
         limit: INFINITE_QUERY_LIMIT,

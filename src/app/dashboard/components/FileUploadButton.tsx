@@ -26,7 +26,7 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
   const { toast } = useToast();
 
   // Sync Back -> Front
-  const { mutate: startPolling } = trpc.getFile.useMutation({
+  const { mutate: startPolling } = trpc.file.getFile.useMutation({
     onSuccess: (file) => {
       // Go to
       router.push(`/dashboard/${file.id}`);

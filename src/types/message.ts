@@ -5,7 +5,7 @@ import { inferRouterOutputs } from "@trpc/server";
 type RouterOutput = inferRouterOutputs<AppRouter>;
 
 // Get Type Messages Output from Router Outputs
-type Messages = RouterOutput["getFileMessages"]["messages"];
+type Messages = RouterOutput["file"]["getFileMessages"]["messages"];
 
 // Get Type /w text (which can only be string here)
 type OmitTextAndDate = Omit<Messages[number], "text" | "createdAt">;

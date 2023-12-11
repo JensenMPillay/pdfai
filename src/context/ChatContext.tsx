@@ -69,13 +69,13 @@ export const ChatContextProvider = ({
       setMessage("");
 
       // Cancel Refresh
-      await utils.getFileMessages.cancel();
+      await utils.file.getFileMessages.cancel();
 
       // Get Infinite Data
-      const previousMessages = utils.getFileMessages.getInfiniteData();
+      const previousMessages = utils.file.getFileMessages.getInfiniteData();
 
       // Combine Infinite Data
-      utils.getFileMessages.setInfiniteData(
+      utils.file.getFileMessages.setInfiniteData(
         {
           fileId,
           limit: INFINITE_QUERY_LIMIT,
@@ -114,7 +114,7 @@ export const ChatContextProvider = ({
     // Handle Error w/ AI Response : BackupMessage
     onError: (_, __, context) => {
       setMessage(backupMessage.current);
-      utils.getFileMessages.setData(
+      utils.file.getFileMessages.setData(
         { fileId },
         { messages: context?.previousMessages ?? [], nextCursor: undefined },
       );
@@ -147,7 +147,7 @@ export const ChatContextProvider = ({
         // Accumulate Value
         accResponse += chunkValue;
 
-        utils.getFileMessages.setInfiniteData(
+        utils.file.getFileMessages.setInfiniteData(
           {
             fileId,
             limit: INFINITE_QUERY_LIMIT,
@@ -202,7 +202,7 @@ export const ChatContextProvider = ({
       // Loading State
       setIsLoading(false);
       // Refresh File Messages
-      await utils.getFileMessages.invalidate({ fileId });
+      await utils.file.getFileMessages.invalidate({ fileId });
     },
   });
 

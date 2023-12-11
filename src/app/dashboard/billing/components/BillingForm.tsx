@@ -24,7 +24,7 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
   const { toast } = useToast();
 
   const { mutate: createStripeSession, isLoading } =
-    trpc.createStripeSession.useMutation({
+    trpc.user.createStripeSession.useMutation({
       onSuccess: ({ url }) => {
         if (url) window.location.href = url;
         if (!url) {

@@ -41,66 +41,67 @@ const SignUpForm = () => {
   });
 
   // Func Submit Inputs Value
-  const { mutate: registerUser, isLoading } = trpc.registerUser.useMutation({
-    // Mutate onChange
-    onMutate: () => {
-      toast({
-        title: "Setting up your account...",
-        description: "You will be redirected automatically.",
-        variant: "default",
-      });
-    },
-    // Success Behavior
-    onSuccess: async ({ success }) => {
-      if (success) {
-        const res = await signIn("credentials", {
-          email: signUpForm.getValues("email"),
-          password: signUpForm.getValues("password"),
-          redirect: false,
-          callbackUrl,
+  const { mutate: registerUser, isLoading } =
+    trpc.user.registerUser.useMutation({
+      // Mutate onChange
+      onMutate: () => {
+        toast({
+          title: "Setting up your account...",
+          description: "You will be redirected automatically.",
+          variant: "default",
         });
+      },
+      // Success Behavior
+      onSuccess: async ({ success }) => {
+        if (success) {
+          const res = await signIn("credentials", {
+            email: signUpForm.getValues("email"),
+            password: signUpForm.getValues("password"),
+            redirect: false,
+            callbackUrl,
+          });
 
-        if (!res?.error) {
-          router.refresh();
-          router.push(callbackUrl);
-        } else {
-          toast({
-            title: "There was a problem...",
-            description: res?.error,
-            variant: "destructive",
-          });
+          if (!res?.error) {
+            router.refresh();
+            router.push(callbackUrl);
+          } else {
+            toast({
+              title: "There was a problem...",
+              description: res?.error,
+              variant: "destructive",
+            });
+          }
         }
-      }
-    },
-    // Error Behavior
-    onError: (error) => {
-      switch (error.data?.code) {
-        case "CONFLICT": {
-          toast({
-            title: "There was a problem...",
-            description:
-              "This email is already in use. Please use a different email address or Sign In.",
-            variant: "destructive",
-          });
+      },
+      // Error Behavior
+      onError: (error) => {
+        switch (error.data?.code) {
+          case "CONFLICT": {
+            toast({
+              title: "There was a problem...",
+              description:
+                "This email is already in use. Please use a different email address or Sign In.",
+              variant: "destructive",
+            });
+          }
+          case "PARSE_ERROR": {
+            toast({
+              title: "There was a problem...",
+              description: "Please refresh this page and try again.",
+              variant: "destructive",
+            });
+          }
+          default: {
+            console.log(error.data?.code);
+            toast({
+              title: "There was a problem...",
+              description: error.data?.code,
+              variant: "destructive",
+            });
+          }
         }
-        case "PARSE_ERROR": {
-          toast({
-            title: "There was a problem...",
-            description: "Please refresh this page and try again.",
-            variant: "destructive",
-          });
-        }
-        default: {
-          console.log(error.data?.code);
-          toast({
-            title: "There was a problem...",
-            description: error.data?.code,
-            variant: "destructive",
-          });
-        }
-      }
-    },
-  });
+      },
+    });
 
   const onSubmit: SubmitHandler<SignUpSchemaType> = async (data, event) => {
     event?.preventDefault();

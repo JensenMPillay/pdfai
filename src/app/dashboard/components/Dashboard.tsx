@@ -12,7 +12,7 @@ type DashboardProps = {
 
 function Dashboard({ subscriptionPlan }: DashboardProps) {
   // Get Files
-  const { data: files, isLoading } = trpc.getUserFiles.useQuery();
+  const { data: files, isLoading } = trpc.user.getUserFiles.useQuery();
 
   return (
     <main className="mx-auto max-w-7xl md:p-10">

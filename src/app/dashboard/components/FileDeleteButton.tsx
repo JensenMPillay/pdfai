@@ -13,10 +13,10 @@ const FileDeleteButton = ({ fileId }: { fileId: string }) => {
   const utils = trpc.useUtils();
 
   // Delete File
-  const { mutate: deleteFile } = trpc.deleteFile.useMutation({
+  const { mutate: deleteFile } = trpc.file.deleteFile.useMutation({
     // Invalidate list of files to reload page
     onSuccess: () => {
-      utils.getUserFiles.invalidate();
+      utils.user.getUserFiles.invalidate();
     },
     // on Mutation Change
     onMutate({ id }) {

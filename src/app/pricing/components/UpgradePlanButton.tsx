@@ -4,11 +4,12 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
 const UpgradePlanButton = () => {
-  const { mutate: createStripeSession } = trpc.createStripeSession.useMutation({
-    onSuccess: ({ url }) => {
-      window.location.href = url ?? "/dashboard/billing";
-    },
-  });
+  const { mutate: createStripeSession } =
+    trpc.user.createStripeSession.useMutation({
+      onSuccess: ({ url }) => {
+        window.location.href = url ?? "/dashboard/billing";
+      },
+    });
 
   return (
     <Button onClick={() => createStripeSession()} className="w-full">

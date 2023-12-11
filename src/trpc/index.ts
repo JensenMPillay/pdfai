@@ -10,13 +10,17 @@ import {
 import { router } from "./trpc";
 
 export const appRouter = router({
-  registerUser: registerUserProcedure,
-  createStripeSession: createStripeSessionProcedure,
-  getUserFiles: getUserFilesProcedure,
-  getFile: getFileProcedure,
-  deleteFile: deleteFileProcedure,
-  getFileUploadStatus: getFileUploadStatusProcedure,
-  getFileMessages: getFileMessagesProcedure,
+  user: router({
+    registerUser: registerUserProcedure,
+    createStripeSession: createStripeSessionProcedure,
+    getUserFiles: getUserFilesProcedure,
+  }),
+  file: router({
+    getFile: getFileProcedure,
+    deleteFile: deleteFileProcedure,
+    getFileUploadStatus: getFileUploadStatusProcedure,
+    getFileMessages: getFileMessagesProcedure,
+  }),
 });
 
 export type AppRouter = typeof appRouter;
