@@ -11,9 +11,7 @@ AI-PDF-Chat is a Software as a Service (SaaS) application facilitating direct co
 - **PDF Upload & Viewing:** Upload PDFs and seamlessly view them online.
 - **AI Chat:** Engage with OpenAI's AI to converse, summarize, and gain insights based on the uploaded documents.
 
-## Libraries Used
-
-### Key Libraries:
+### Key Libraries
 - **Next.js:** React framework for server-rendered applications.
 - **Next-Auth:** Authentication library for Next.js applications.
 - **OpenAI:** AI platform for natural language processing.
@@ -23,12 +21,6 @@ AI-PDF-Chat is a Software as a Service (SaaS) application facilitating direct co
 - **Shadcn-UI:** UI library for creating sleek and customizable interfaces.
 - **Langchain:** Library for language processing and analysis.
 - **Zod:** TypeScript-first schema declaration and validation library.
-
-### Features Developed:
-- **Authentication System:** Secure user authentication.
-- **Subscription Management:** Handling subscription plans.
-- **PDF Handling:** Upload, view, and interact with PDF documents.
-- **AI Chat Integration:** Utilizing OpenAI for contextual document-based conversations.
 
 ### Usage
 
