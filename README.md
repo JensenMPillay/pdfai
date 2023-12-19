@@ -1,10 +1,4 @@
-# AI-PDF-Chat
-
-<p align="center">
-  <a href="https://pdfai-jensenmpillay.vercel.app/"
-    <h3 align="center">PDFAI</h3>
-  </a>
-</p>
+# PDFAI
 
 ## Introduction
 
