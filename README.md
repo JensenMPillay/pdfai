@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# PDFAI
 
-## Getting Started
+## Introduction
 
-First, run the development server:
+AI-PDF-Chat is a Software as a Service (SaaS) application facilitating direct communication with uploaded PDF documents through an AI-powered Chat Interface.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Authentication:** Users can securely authenticate their accounts.
+- **Subscription:** Option to subscribe to a monthly plan for extended functionalities.
+- **PDF Upload & Viewing:** Upload PDFs and seamlessly view them online.
+- **AI Chat:** Engage with OpenAI's AI to converse, summarize, and gain insights based on the uploaded documents.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Key Libraries
+- **Next.js:** React framework for server-rendered applications.
+- **Next-Auth:** Authentication library for Next.js applications.
+- **OpenAI:** AI platform for natural language processing.
+- **Prisma:** Database toolkit for interfacing with databases.
+- **Stripe:** Payment processing platform for online transactions.
+- **TRPC:** Typed RPC (Remote Procedure Call) library for TypeScript.
+- **Shadcn-UI:** UI library for creating sleek and customizable interfaces.
+- **Langchain:** Library for language processing and analysis.
+- **Zod:** TypeScript-first schema declaration and validation library.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Usage
 
-## Learn More
+1. Visit [PDFAI](https://pdfai-jensenmpillay.vercel.app/)
+2. Register or log in to access the dashboard.
+3. Subscribe for additional features if required.
+4. Upload a PDF and engage with the AI Chat Interface.
+5. Explore various functionalities provided.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Feel free to contribute to PDFAI or report issues if you encounter any bugs or have suggestions for improvement. 
