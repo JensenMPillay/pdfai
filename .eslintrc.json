@@ -1,3 +1,8 @@
 {
-  "extends": ["next", "prettier"]
+  "extends": [
+    "next",
+    "prettier",
+    "plugin:testing-library/react",
+    "plugin:jest-dom/recommended"
+  ]
 }
