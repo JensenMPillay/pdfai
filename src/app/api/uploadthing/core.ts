@@ -2,11 +2,11 @@ import { PLANS } from "@/config/stripe";
 import { db } from "@/db";
 import { vectorizeDocumentsFile } from "@/lib/pinecone";
 import { getUserSubscriptionPlan } from "@/lib/stripe";
+import { FileSize } from "@/types/file";
 import { getServerSession } from "next-auth";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UTApi } from "uploadthing/server";
 import { options } from "../auth/[...nextauth]/options";
-import { isPlanExceeded } from "../lib/utils";
 
 export const utapi = new UTApi();
 
@@ -61,31 +61,7 @@ const onUploadComplete = async ({
 
   try {
     // Vectorization && Indexation of Document
-    if (createdFile) vectorizeDocumentsFile({ file: createdFile });
-
-    // Get File/Plan Status
-    const isExceeded = await isPlanExceeded({ file: createdFile });
-
-    if (isExceeded) {
-      await db.file.update({
-        data: {
-          uploadStatus: "FAILED",
-        },
-        where: {
-          id: createdFile.id,
-        },
-      });
-    } else {
-      // DB Update
-      await db.file.update({
-        data: {
-          uploadStatus: "SUCCESS",
-        },
-        where: {
-          id: createdFile.id,
-        },
-      });
-    }
+    if (createdFile) await vectorizeDocumentsFile({ file: createdFile });
   } catch (error) {
     await db.file.update({
       data: {
@@ -105,7 +81,7 @@ export const ourFileRouter = {
     pdf: {
       maxFileSize: `${
         PLANS.find((plan) => plan.name === "Free")!.sizeLimit
-      }MB` as "4MB",
+      }MB` as FileSize,
     },
   })
     // Set Permissions
@@ -115,7 +91,7 @@ export const ourFileRouter = {
     pdf: {
       maxFileSize: `${
         PLANS.find((plan) => plan.name === "Pro")!.sizeLimit
-      }MB` as "16MB",
+      }MB` as FileSize,
     },
   })
     // Set Permissions

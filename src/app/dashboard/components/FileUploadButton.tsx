@@ -27,6 +27,13 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
 
   // Sync Back -> Front
   const { mutate: startPolling } = trpc.file.getFile.useMutation({
+    onMutate: () => {
+      return toast({
+        title: "Setting up your file...",
+        description: "You will be redirected automatically.",
+        variant: "default",
+      });
+    },
     onSuccess: (file) => {
       // Go to
       router.push(`/dashboard/${file.id}`);
