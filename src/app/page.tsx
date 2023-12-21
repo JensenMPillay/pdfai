@@ -8,18 +8,18 @@ export default function Home() {
   return (
     <>
       <MaxWidthWrapper className="mb-12 mt-28 flex flex-col items-center justify-center sm:mt-40">
-        <h1 className="max-w-4xl text-5xl font-bold md:text-6xl lg:text-7xl">
+        <h1 className="max-w-4xl text-5xl font-bold fade-in md:text-6xl lg:text-7xl">
           Chat with your <span className="text-blue-600">documents</span> in
           seconds.
         </h1>
-        <p className="mt-5 max-w-prose text-zinc-700 sm:text-lg">
+        <p className="mt-5 max-w-prose text-zinc-700 fade-in sm:text-lg">
           PDFAI allows you to have conversations with any PDF document. Simply
           upload your file and start asking questions right away.
         </p>
         <Link
           className={buttonVariants({
             size: "lg",
-            className: "mt-5",
+            className: "mt-5 fade-in",
           })}
           href="/auth/sign-up"
           target="_blank"
@@ -29,7 +29,7 @@ export default function Home() {
       </MaxWidthWrapper>
       {/* Proposition Section */}
       <div>
-        <div className="relative isolate">
+        <div className="relative isolate fade-in">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
