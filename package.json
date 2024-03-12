@@ -36,6 +36,7 @@
     "@uploadthing/react": "latest",
     "ai": "^2.2.37",
     "bcrypt": "latest",
+    "bson": "^6.4.0",
     "class-variance-authority": "^0.7.0",
     "cmdk": "^0.2.1",
     "date-fns": "^3.4.0",
