@@ -3,7 +3,6 @@ import { utapi } from "@/app/api/uploadthing/core";
 import { INFINITE_QUERY_LIMIT } from "@/config/infinite-query";
 import { PLANS } from "@/config/stripe";
 import { db } from "@/db";
-import { getDbFile, getDbUser } from "@/db/utils";
 import { deleteVectorizedDocumentsFile } from "@/lib/pinecone";
 import { signUpSchema } from "@/lib/schemas/CredentialsSchema";
 import { getUserSubscriptionPlan, stripe } from "@/lib/stripe";
@@ -21,8 +20,10 @@ export const registerUserProcedure = publicProcedure
   // Business Logic
   .mutation(async ({ input }) => {
     // Get User
-    const dbUser = await getDbUser({
-      email: input.email,
+    const dbUser = await db.user.findFirst({
+      where: {
+        email: input.email,
+      },
     });
 
     // Error : Case User!
@@ -50,8 +51,10 @@ export const createStripeSessionProcedure = privateProcedure.mutation(
     if (!ctx.userId) throw new TRPCError({ code: "UNAUTHORIZED" });
 
     // DB Verification
-    const dbUser = await getDbUser({
-      id: ctx.userId,
+    const dbUser = await db.user.findFirst({
+      where: {
+        id: ctx.userId,
+      },
     });
 
     if (!dbUser) throw new TRPCError({ code: "NOT_FOUND" });
@@ -119,10 +122,15 @@ export const getFileProcedure = privateProcedure
     if (!ctx.userId) throw new TRPCError({ code: "UNAUTHORIZED" });
 
     // Get File
-    const file = await getDbFile({
-      key: input.key,
-      userId: ctx.userId,
+    const file = await db.file.findFirst({
+      where: {
+        key: input.key,
+        userId: ctx.userId,
+      },
     });
+
+    // Error
+    if (!file) throw new TRPCError({ code: "NOT_FOUND" });
 
     // RETURN
     return file;
@@ -136,10 +144,15 @@ export const deleteFileProcedure = privateProcedure
     if (!ctx.userId) throw new TRPCError({ code: "UNAUTHORIZED" });
 
     // Get File
-    const file = await getDbFile({
-      id: input.id,
-      userId: ctx.userId,
+    const file = await db.file.findFirst({
+      where: {
+        id: input.id,
+        userId: ctx.userId,
+      },
     });
+
+    // Error
+    if (!file) throw new TRPCError({ code: "NOT_FOUND" });
 
     // Delete DB File
     await db.file.delete({
@@ -220,10 +233,15 @@ export const getFileMessagesProcedure = privateProcedure
     const limit = input.limit ?? INFINITE_QUERY_LIMIT;
 
     // Get File
-    const file = await getDbFile({
-      id: input.fileId,
-      userId: ctx.userId,
+    const file = await db.file.findFirst({
+      where: {
+        id: input.fileId,
+        userId: ctx.userId,
+      },
     });
+
+    // Error
+    if (!file) throw new TRPCError({ code: "NOT_FOUND" });
 
     const messages = await db.message.findMany({
       // + 1 for cursor up (take : How Many)
