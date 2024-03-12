@@ -80,9 +80,6 @@ dependencies:
   bcrypt:
     specifier: latest
     version: 5.1.1
-  bson:
-    specifier: ^6.4.0
-    version: 6.4.0
   class-variance-authority:
     specifier: ^0.7.0
     version: 0.7.0
@@ -3573,11 +3570,6 @@ packages:
     dependencies:
       node-int64: 0.4.0
     dev: true
-
-  /bson@6.4.0:
-    resolution: {integrity: sha512-6/gSSEdbkuFlSb+ufj5jUSU4+wo8xQOwm2bDSqwmxiPE17JTpsP63eAwoN8iF8Oy4gJYj+PAL3zdRCTdaw5Y1g==}
-    engines: {node: '>=16.20.1'}
-    dev: false
 
   /buffer-from@1.1.2:
     resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}

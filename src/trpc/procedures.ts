@@ -9,7 +9,6 @@ import { getUserSubscriptionPlan, stripe } from "@/lib/stripe";
 import { absoluteUrl } from "@/lib/utils";
 import { UploadStatus } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
-import { ObjectId } from "bson";
 import { z } from "zod";
 import { privateProcedure, publicProcedure } from "./trpc";
 const bcrypt = require("bcrypt");
@@ -54,7 +53,7 @@ export const createStripeSessionProcedure = privateProcedure.mutation(
     // DB Verification
     const dbUser = await db.user.findFirst({
       where: {
-        id: new ObjectId(ctx.userId).toHexString(),
+        id: ctx.userId,
       },
     });
 
