@@ -12,6 +12,7 @@ AI-PDF-Chat is a Software as a Service (SaaS) application facilitating direct co
 - **AI Chat:** Engage with OpenAI's AI to converse, summarize, and gain insights based on the uploaded documents.
 
 ### Key Libraries
+
 - **Next.js:** React framework for server-rendered applications.
 - **Next-Auth:** Authentication library for Next.js applications.
 - **OpenAI:** AI platform for natural language processing.
@@ -24,7 +25,7 @@ AI-PDF-Chat is a Software as a Service (SaaS) application facilitating direct co
 
 ### Usage
 
-1. Visit [PDFAI](https://pdfai-jensenmpillay.vercel.app/)
+1. Visit [PDFAI](https://pdfai-jmpillay.vercel.app/)
 2. Register or log in to access the dashboard.
 3. Subscribe for additional features if required.
 4. Upload a PDF and engage with the AI Chat Interface.
@@ -32,4 +33,4 @@ AI-PDF-Chat is a Software as a Service (SaaS) application facilitating direct co
 
 ---
 
-Feel free to contribute to PDFAI or report issues if you encounter any bugs or have suggestions for improvement. 
+Feel free to contribute to PDFAI or report issues if you encounter any bugs or have suggestions for improvement.
