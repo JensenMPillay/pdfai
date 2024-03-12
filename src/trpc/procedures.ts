@@ -38,7 +38,7 @@ export const registerUserProcedure = publicProcedure
     });
 
     // Error
-    if (user) throw new TRPCError({ code: "PARSE_ERROR" });
+    if (!user) throw new TRPCError({ code: "PARSE_ERROR" });
 
     // RETURN
     return { success: true };

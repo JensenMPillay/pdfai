@@ -76,29 +76,28 @@ const SignUpForm = () => {
       // Error Behavior
       onError: (error) => {
         switch (error.data?.code) {
-          case "CONFLICT": {
+          case "CONFLICT":
             toast({
               title: "There was a problem...",
               description:
                 "This email is already in use. Please use a different email address or Sign In.",
               variant: "destructive",
             });
-          }
-          case "PARSE_ERROR": {
+            break;
+          case "PARSE_ERROR":
             toast({
               title: "There was a problem...",
               description: "Please refresh this page and try again.",
               variant: "destructive",
             });
-          }
-          default: {
+            break;
+          default:
             console.log(error.data?.code);
             toast({
               title: "There was a problem...",
               description: error.data?.code,
               variant: "destructive",
             });
-          }
         }
       },
     });
