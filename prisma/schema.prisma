@@ -6,14 +6,14 @@ generator client {
 }
 
 datasource db {
-  provider     = "mysql"
+  provider     = "mongodb"
   url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
 
 model Account {
-  id                 String    @id @default(cuid())
-  userId             String
+  id                 String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId             String    @db.ObjectId
   providerType       String
   providerId         String
   providerAccountId  String
@@ -29,8 +29,8 @@ model Account {
 }
 
 model Session {
-  id           String   @id @default(cuid())
-  userId       String
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String   @db.ObjectId
   expires      DateTime
   sessionToken String   @unique
   accessToken  String   @unique
@@ -42,7 +42,7 @@ model Session {
 }
 
 model User {
-  id            String    @id @unique @default(cuid())
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
   name          String?   
   email         String?   @unique
   password      String?   @unique
@@ -63,7 +63,7 @@ model User {
 }
 
 model VerificationRequest {
-  id         String   @id @default(cuid())
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
   identifier String
   token      String   @unique
   expires    DateTime
@@ -82,7 +82,7 @@ enum UploadStatus {
 }
 
 model File {
-  id   String @id @default(cuid())
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
   name String
 
   uploadStatus UploadStatus @default(PENDING)
@@ -94,23 +94,23 @@ model File {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   User      User?    @relation(fields: [userId], references: [id])
-  userId    String?
+  userId    String?  @db.ObjectId
 
   @@index([userId])
 }
 
 model Message {
-  id   String @id @default(cuid())
-  text String @db.Text()
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  text String
 
   isUserMessage Boolean
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   User      User?    @relation(fields: [userId], references: [id])
-  userId    String?
+  userId    String?  @db.ObjectId
   File      File?    @relation(fields: [fileId], references: [id])
-  fileId    String?
+  fileId    String?  @db.ObjectId
 
   @@index([userId])
   @@index([fileId])
