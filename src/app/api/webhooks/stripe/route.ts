@@ -13,66 +13,75 @@ export async function POST(request: Request) {
     event = stripe.webhooks.constructEvent(
       body,
       signature,
-      process.env.STRIPE_WEBHOOK_SECRET || "",
+      process.env.STRIPE_PAYMENT_WEBHOOK_SECRET || "",
     );
   } catch (err) {
     return new Response(
-      `Webhook Error: ${err instanceof Error ? err.message : "Unknown Error"}`,
+      `Webhook Error: ${
+        err instanceof Error
+          ? err.message
+          : "Webhook signature verification failed."
+      }`,
       { status: 400 },
     );
   }
 
   const session = event.data.object as Stripe.Checkout.Session;
 
-  if (!session?.metadata?.userId) {
-    return new Response(null, {
-      status: 200,
+  const subscription = await stripe.subscriptions.retrieve(
+    session.subscription as string,
+  );
+
+  if (!subscription) {
+    return new Response(`Webhook Error: No subscription found`, {
+      status: 400,
     });
   }
 
-  //   First Time Payment
-  if (event.type === "checkout.session.completed") {
-    // Retrieve Stripe Subscription Data
-    const subscription = await stripe.subscriptions.retrieve(
-      session.subscription as string,
+  // Handle events
+  try {
+    switch (event.type) {
+      case "checkout.session.completed":
+        if (!session?.metadata?.userId) return;
+        // Update User & Create Stripe Data
+        await db.user.update({
+          where: {
+            id: session.metadata.userId,
+          },
+          data: {
+            stripeSubscriptionId: subscription.id,
+            stripeCustomerId: subscription.customer as string,
+            stripePriceId: subscription.items.data[0]?.price.id,
+            stripeCurrentPeriodEnd: new Date(
+              subscription.current_period_end * 1000,
+            ),
+          },
+        });
+        break;
+      case "invoice.payment_succeeded":
+        // Update User & Update Stripe Data
+        await db.user.update({
+          where: {
+            stripeSubscriptionId: subscription.id,
+          },
+          data: {
+            stripePriceId: subscription.items.data[0]?.price.id,
+            stripeCurrentPeriodEnd: new Date(
+              subscription.current_period_end * 1000,
+            ),
+          },
+        });
+        break;
+    }
+  } catch (err) {
+    return new Response(
+      `Webhook Error: ${
+        err instanceof Error ? err.message : "Update booking failed."
+      }`,
+      { status: 400 },
     );
-
-    // Update User & Create Stripe Data
-    await db.user.update({
-      where: {
-        id: session.metadata.userId,
-      },
-      data: {
-        stripeSubscriptionId: subscription.id,
-        stripeCustomerId: subscription.customer as string,
-        stripePriceId: subscription.items.data[0]?.price.id,
-        stripeCurrentPeriodEnd: new Date(
-          subscription.current_period_end * 1000,
-        ),
-      },
-    });
   }
 
-  //   Subscription Payment
-  if (event.type === "invoice.payment_succeeded") {
-    // Retrieve Stripe Subscription Data
-    const subscription = await stripe.subscriptions.retrieve(
-      session.subscription as string,
-    );
-
-    // Update User & Update Stripe Data
-    await db.user.update({
-      where: {
-        stripeSubscriptionId: subscription.id,
-      },
-      data: {
-        stripePriceId: subscription.items.data[0]?.price.id,
-        stripeCurrentPeriodEnd: new Date(
-          subscription.current_period_end * 1000,
-        ),
-      },
-    });
-  }
-
+  // Response
   return new Response(null, { status: 200 });
 }
