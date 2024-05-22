@@ -123,7 +123,7 @@ const SignUpForm = () => {
               <FormControl>
                 <Input
                   className="mx-auto w-3/4"
-                  placeholder="Name"
+                  placeholder="name"
                   type="text"
                   autoCapitalize="on"
                   autoComplete="on"
