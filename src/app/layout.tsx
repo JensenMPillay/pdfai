@@ -25,9 +25,9 @@ export default function RootLayout({ children }: PropsWithChildren) {
           )}
         >
           {/* Notifications  */}
-          <Toaster />
           <Navbar />
-          {children}
+          <main>{children}</main>
+          <Toaster />
         </body>
       </TRPCProviders>
       {/* </AuthProvider> */}
